@@ -1,0 +1,54 @@
+.calendar-tasks {
+  margin: 32px 16px;
+}
+
+.calendar-tasks__title {
+  font-size: 24px;
+  background-color: teal;
+  color: white;
+  padding: 16px;
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+.calendar-tasks__info {
+  font-style: italic;
+  color: red;
+  font-size: small;
+}
+
+.calendar-tasks__items {
+  margin-bottom: 16px;
+}
+
+.calendar-tasks__item {
+  background: #ddd;
+  padding: 8px;
+  margin: 16px 0;
+  cursor: pointer;
+}
+
+.calendar-tasks__save {
+  display: flex;
+  flex-direction: column;
+}
+
+.calendar-tasks__save-title {
+  font-size: 20px;
+  color: teal;
+}
+
+.calendar-tasks__save-input {
+  margin-bottom: 8px;
+}
+
+.calendar-tasks__save-btn {
+  background-color: orange; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  font-size: 16px;
+  width: 200px;
+  cursor: pointer;
+}

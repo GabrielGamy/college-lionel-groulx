@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calendar</title>
+    <link rel="stylesheet" href="./styles/calendar.css" />
+    <link rel="stylesheet" href="./styles/calendar-weekdays.css" />
+    <link rel="stylesheet" href="./styles/calendar-month.css" />
+    <link rel="stylesheet" href="./styles/calendar-actions.css" />
+    <link rel="stylesheet" href="./styles/calendar-tasks.css" />
+  </head>
+  <body>
+    <header>Calendar App</header>
+
+    <section class="calendar-container">
+      <div class="month">
+        <ul>
+          <li class="prev js-prev">&#10094;</li>
+          <li class="next js-next">&#10095;</li>
+          <li id="month-text">August 2021</li>
+        </ul>
+      </div>
+
+      <ul class="weekdays">
+        <li>Sunday</li>
+        <li>Monday</li>
+        <li>Tuesday</li>
+        <li>Wednesday</li>
+        <li>Thursday</li>
+        <li>Friday</li>
+        <li>Saturday</li>
+      </ul>
+
+      <ul id="calendar-days" class="days"></ul>
+
+      <div class="calendar-actions">
+        <button class="calendar-actions__btn js-prev" type="button">
+          Previous
+        </button>
+        <button class="calendar-actions__btn js-next" type="button">
+          Next
+        </button>
+      </div>
+    </section>
+
+    <section class="calendar-tasks">
+      <div class="calendar-tasks__title">Tasks</div>
+      <div class="calendar-tasks__info">
+        * Double click on the task to perform a delete action
+      </div>
+      <ol class="calendar-tasks__items">
+        No tasks found
+      </ol>
+      <div class="calendar-tasks__save">
+        <div class="calendar-tasks__save-title">Add a new task:</div>
+        <textarea
+          class="calendar-tasks__save-input"
+          rows="4"
+          cols="50"
+        ></textarea>
+        <button class="calendar-tasks__save-btn" type="button">Add task</button>
+      </div>
+    </section>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="./js/calendar-builder.js" defer></script>
+    <script src="./js/calendar-navigation.js" defer></script>
+    <script src="./js/calendar-tasks.js" defer></script>
+    <script src="./js/calendar.js" defer></script>
+  </body>
+</html>
