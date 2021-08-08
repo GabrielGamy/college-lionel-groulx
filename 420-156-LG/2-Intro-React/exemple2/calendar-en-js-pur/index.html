@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calendar - Just JavaScript</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>Calendar App</header>
+
+    <div class="calendar-container">
+      <div class="month">      
+        <ul>
+          <li class="prev">&#10094;</li>
+          <li class="next">&#10095;</li>
+          <li id="month-text">August 2021</li>
+        </ul>
+      </div>
+      
+      <ul class="weekdays">
+        <li>Sunday</li>
+        <li>Monday</li>
+        <li>Tuesday</li>
+        <li>Wednesday</li>
+        <li>Thursday</li>
+        <li>Friday</li>
+        <li>Saturday</li>
+      </ul>
+      
+      <ul id="calendar-days" class="days"></ul>
+      
+      <div class="calendar-actions">
+        <button class="btn" id="prev-btn" type="button">Previous</button>
+          <button class="btn" id="next-btn" type="button">Next</button>
+      </div>
+    </div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>    
+    <script src="calendar.js" defer></script>
+</body>
+</html> 
+
