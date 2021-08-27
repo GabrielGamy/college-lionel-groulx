@@ -1,0 +1,33 @@
+{
+  "expo": {
+    "name": "e21-semaine4-mini-moodle",
+    "slug": "snack-900bd610-8e9e-4e6d-8876-68ca41c5fb29",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#FFFFFF"
+      }
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "description": "Programmation d'applications mobiles 1 - Collège Lionel-Groulx \n * \n * Affichage conditionnel des éléments \n * Utilisation d'un bouton toogle\n * Affichage du composant Alert"
+  }
+}

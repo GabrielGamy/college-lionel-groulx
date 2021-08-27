@@ -1,0 +1,33 @@
+{
+  "expo": {
+    "name": "e21-semaine2-webtechnology",
+    "slug": "snack-1764f395-b276-4d91-a12b-a0181c3368b1",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#FFFFFF"
+      }
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "description": "Programmation d'applications mobiles 1 - Collège Lionel-Groulx\n * Introduction à React et React native\n * Utilisation des images\n * Two-way data binding\n * Passage des paramètres avec Props\n * Ecouter les événements dans une zone de texte avec TextInput \n * utilisation de Scrollview"
+  }
+}
