@@ -6,13 +6,36 @@ import {
   Image,
   TouchableOpacity,
   ScrollView,
+  Dimensions,
 } from "react-native";
 import { Header } from "./components/Header/Header";
 import { ChronoInput } from "./components/ChronoInput/ChronoInput";
 import { Entypo, MaterialIcons } from "@expo/vector-icons";
 
 export default class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      width: Dimensions.get("window").width,
+    };
+  }
+
+  componentDidMount() {
+    this.dimensionSubscription = Dimensions.addEventListener(
+      "change",
+      this.onChange
+    );
+  }
+
+  onChange = ({ window }) => {
+    this.setState({ width: window.width });
+  };
+
   render() {
+    const buttonStyles =
+      this.state.width > 600
+        ? styles.buttonsHorizontal
+        : styles.buttonsVertical;
     return (
       <ScrollView>
         <View style={styles.container}>
@@ -24,7 +47,7 @@ export default class App extends React.Component {
               source={require("./assets/sablier.jpeg")}
             />
           </View>
-          <View style={styles.buttons}>
+          <View style={[buttonStyles]}>
             <TouchableOpacity
               style={[styles.buttonsActions, styles.buttonCommencer]}
             >
@@ -53,7 +76,13 @@ const styles = StyleSheet.create({
     width: 150,
     height: 150,
   },
-  buttons: {
+  buttonsHorizontal: {
+    margin: 16,
+    flexDirection: "row",
+    justifyContent: "space-around",
+    alignItems: "center",
+  },
+  buttonsVertical: {
     margin: 16,
     justifyContent: "center",
     alignItems: "center",
