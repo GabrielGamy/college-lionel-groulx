@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   ScrollView,
   Dimensions,
+  Alert,
 } from "react-native";
 import { Header } from "./components/Header/Header";
 import { ChronoInput } from "./components/ChronoInput/ChronoInput";
@@ -34,11 +35,39 @@ export default class App extends React.Component {
   };
 
   onSetHours = (text) => {
-    this.setState({ hours: text });
+    const hours = parseInt(text);
+    this.setState({ hours: this.formatNumber(hours) });
   };
 
   onSetMinutes = (text) => {
-    this.setState({ minutes: text });
+    const minutes = parseInt(text);
+    this.setState({ minutes: this.formatNumber(minutes) });
+  };
+
+  start = () => {
+    setInterval(() => {
+      const currentHours = parseInt(this.state.hours);
+      const currentMinutes = parseInt(this.state.minutes);
+
+      if (this.state.hours === "00" && this.state.minutes === "00") {
+        Alert.alert("Reveil Matin", "Il est temps de vous lever!", [
+          { text: "Merci!" },
+        ]);
+        return;
+      }
+
+      if (currentMinutes === 0) {
+        this.setState({ hours: this.formatNumber(currentHours - 1) });
+        this.setState({ minutes: 59 });
+      } else {
+        this.setState({ minutes: this.formatNumber(currentMinutes - 1) });
+      }
+    }, 1000);
+  };
+
+  formatNumber = (number) => {
+    if (number > 9) return number;
+    return "0" + number;
   };
 
   render() {
@@ -63,6 +92,7 @@ export default class App extends React.Component {
           </View>
           <View style={[buttonStyles]}>
             <TouchableOpacity
+              onPress={this.start}
               style={[styles.buttonsActions, styles.buttonCommencer]}
             >
               <Entypo name="clock" size={24} color="white" />
