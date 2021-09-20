@@ -17,6 +17,8 @@ export default class App extends React.Component {
     super(props);
     this.state = {
       width: Dimensions.get("window").width,
+      hours: "00",
+      minutes: "00",
     };
   }
 
@@ -31,16 +33,28 @@ export default class App extends React.Component {
     this.setState({ width: window.width });
   };
 
+  onSetHours = (text) => {
+    this.setState({ hours: text });
+  };
+
+  onSetMinutes = (text) => {
+    this.setState({ minutes: text });
+  };
+
   render() {
+    const { hours, minutes, width } = this.state;
     const buttonStyles =
-      this.state.width > 600
-        ? styles.buttonsHorizontal
-        : styles.buttonsVertical;
+      width > 600 ? styles.buttonsHorizontal : styles.buttonsVertical;
     return (
       <ScrollView>
         <View style={styles.container}>
           <Header />
-          <ChronoInput />
+          <ChronoInput
+            hours={hours}
+            minutes={minutes}
+            onSetHours={this.onSetHours}
+            onSetMinutes={this.onSetMinutes}
+          />
           <View style={styles.imageContainer}>
             <Image
               style={styles.imageSablier}
