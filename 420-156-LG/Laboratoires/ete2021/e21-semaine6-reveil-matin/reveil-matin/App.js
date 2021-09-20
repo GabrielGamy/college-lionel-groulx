@@ -45,7 +45,7 @@ export default class App extends React.Component {
   };
 
   start = () => {
-    setInterval(() => {
+    this.startSubscription = setInterval(() => {
       const currentHours = parseInt(this.state.hours);
       const currentMinutes = parseInt(this.state.minutes);
 
@@ -53,6 +53,7 @@ export default class App extends React.Component {
         Alert.alert("Reveil Matin", "Il est temps de vous lever!", [
           { text: "Merci!" },
         ]);
+        this.cancel();
         return;
       }
 
@@ -68,6 +69,12 @@ export default class App extends React.Component {
   formatNumber = (number) => {
     if (number > 9) return number;
     return "0" + number;
+  };
+
+  cancel = () => {
+    if (this.startSubscription) {
+      clearInterval(this.startSubscription);
+    }
   };
 
   render() {
@@ -100,6 +107,7 @@ export default class App extends React.Component {
             </TouchableOpacity>
             <TouchableOpacity
               style={[styles.buttonsActions, styles.buttonAnnuler]}
+              onPress={this.cancel}
             >
               <MaterialIcons name="cancel" size={24} color="white" />
               <Text style={styles.buttonAnnulerText}>Annuler</Text>
