@@ -77,6 +77,10 @@ export default class App extends React.Component {
     }
   };
 
+  componentWillUnmount() {
+    this.cancel();
+  }
+
   render() {
     const { hours, minutes, width } = this.state;
     const buttonStyles =
