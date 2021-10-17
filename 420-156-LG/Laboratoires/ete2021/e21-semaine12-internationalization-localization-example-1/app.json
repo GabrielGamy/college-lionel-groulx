@@ -1,0 +1,33 @@
+{
+  "expo": {
+    "name": "e21-semaine12-internationalization-localization-example-1",
+    "slug": "snack-365e4d0e-898f-4597-93e7-ee71577e263f",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#FFFFFF"
+      }
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "description": "Programmation d'applications mobiles 1 - Collège Lionel-Groulx \n * Techniques d'internationalisation"
+  }
+}
