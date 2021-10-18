@@ -1,0 +1,33 @@
+{
+  "expo": {
+    "name": "e21-revision-enfant-parent",
+    "slug": "snack-f7d0f35d-bbd9-4d08-9644-fa2161ec3328",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#FFFFFF"
+      }
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "description": "Programmation d'applications mobiles 1 - Collège Lionel-Groulx\n * Communication Enfant-Parent entre composants\n* Utilisation de ComponentDidMount, ComponentDidUpdate"
+  }
+}
