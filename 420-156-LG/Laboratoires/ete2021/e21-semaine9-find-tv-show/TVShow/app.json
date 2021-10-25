@@ -1,14 +1,14 @@
 {
   "expo": {
-    "name": "e21-semaine9-find-tv-show",
+    "name": "FindTVShow",
     "slug": "snack-b6f18788-9ff5-4cc6-9799-3e3761bccbc2",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/splash-tv-show.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#3c948b"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -17,12 +17,16 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.clg.findtvshow",
+      "buildNumber": "1.0.0"
     },
     "android": {
+      "package": "com.clg.findtvshow",
+      "versionCode": 1,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
+        "backgroundColor": "#3c948b"
       }
     },
     "web": {
