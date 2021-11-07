@@ -22,12 +22,12 @@ export class ChronoInput extends React.Component {
 
   setShowInput = () => this.setState({ showInputs: true });
 
-  setHours = (text) => {
-    this.props.onSetHours(text);
-  };
-
   setMinutes = (text) => {
     this.props.onSetMinutes(text);
+  };
+
+  setSeconds = (text) => {
+    this.props.onSetSeconds(text);
   };
 
   render() {
@@ -35,15 +35,6 @@ export class ChronoInput extends React.Component {
       <View style={styles.chrono}>
         {this.state.showInputs && (
           <View>
-            <View>
-              <Text>Heure :</Text>
-              <TextInput
-                style={styles.input}
-                keyboardType="numeric"
-                placeholder="saisir l'heure"
-                onChangeText={this.setHours}
-              />
-            </View>
             <View>
               <Text>Minutes :</Text>
               <TextInput
@@ -53,11 +44,20 @@ export class ChronoInput extends React.Component {
                 onChangeText={this.setMinutes}
               />
             </View>
+            <View>
+              <Text>Seconds :</Text>
+              <TextInput
+                style={styles.input}
+                keyboardType="numeric"
+                placeholder="saisir la seconde"
+                onChangeText={this.setSeconds}
+              />
+            </View>
             <Button title="Valider" onPress={this.valider} />
           </View>
         )}
         <Text style={styles.chronoText} onPress={this.setShowInput}>
-          {this.props.hours}:{this.props.minutes}
+          {this.props.minutes}:{this.props.seconds}
         </Text>
       </View>
     );

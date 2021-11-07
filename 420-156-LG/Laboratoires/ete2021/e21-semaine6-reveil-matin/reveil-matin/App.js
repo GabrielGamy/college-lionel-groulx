@@ -18,8 +18,8 @@ export default class App extends React.Component {
     super(props);
     this.state = {
       width: Dimensions.get("window").width,
-      hours: "00",
       minutes: "00",
+      seconds: "00",
     };
   }
 
@@ -34,22 +34,22 @@ export default class App extends React.Component {
     this.setState({ width: window.width });
   };
 
-  onSetHours = (text) => {
-    const hours = parseInt(text);
-    this.setState({ hours: this.formatNumber(hours) });
-  };
-
   onSetMinutes = (text) => {
     const minutes = parseInt(text);
     this.setState({ minutes: this.formatNumber(minutes) });
   };
 
+  onSetSeconds = (text) => {
+    const seconds = parseInt(text);
+    this.setState({ seconds: this.formatNumber(seconds) });
+  };
+
   start = () => {
     this.startSubscription = setInterval(() => {
-      const currentHours = parseInt(this.state.hours);
       const currentMinutes = parseInt(this.state.minutes);
+      const currentSeconds = parseInt(this.state.seconds);
 
-      if (this.state.hours === "00" && this.state.minutes === "00") {
+      if (this.state.minutes === "00" && this.state.seconds === "00") {
         Alert.alert("Reveil Matin", "Il est temps de vous lever!", [
           { text: "Merci!" },
         ]);
@@ -57,11 +57,11 @@ export default class App extends React.Component {
         return;
       }
 
-      if (currentMinutes === 0) {
-        this.setState({ hours: this.formatNumber(currentHours - 1) });
-        this.setState({ minutes: 59 });
-      } else {
+      if (currentSeconds === 0) {
         this.setState({ minutes: this.formatNumber(currentMinutes - 1) });
+        this.setState({ seconds: 59 });
+      } else {
+        this.setState({ seconds: this.formatNumber(currentSeconds - 1) });
       }
     }, 1000);
   };
@@ -82,7 +82,7 @@ export default class App extends React.Component {
   }
 
   render() {
-    const { hours, minutes, width } = this.state;
+    const { minutes, seconds, width } = this.state;
     const buttonStyles =
       width > 600 ? styles.buttonsHorizontal : styles.buttonsVertical;
     return (
@@ -90,10 +90,10 @@ export default class App extends React.Component {
         <View style={styles.container}>
           <Header />
           <ChronoInput
-            hours={hours}
             minutes={minutes}
-            onSetHours={this.onSetHours}
+            seconds={seconds}
             onSetMinutes={this.onSetMinutes}
+            onSetSeconds={this.onSetSeconds}
           />
           <View style={styles.imageContainer}>
             <Image
