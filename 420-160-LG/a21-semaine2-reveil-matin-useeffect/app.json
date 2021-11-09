@@ -1,0 +1,33 @@
+{
+  "expo": {
+    "name": "a21-semaine2-reveil-matin-useeffect",
+    "slug": "snack-c6255b81-6f9d-4230-b190-4d29dbd3ca91",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#FFFFFF"
+      }
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "description": "Programmation d'applications mobiles 1 - Collège Lionel-Groulx\n * Dimensions API, Platform API, Debuging Techniques"
+  }
+}
