@@ -11,7 +11,7 @@ export default function App() {
     setTodos((oldTodos) => [
       ...oldTodos,
       {
-        id: `#-${todos.length + 1}`,
+        id: new Date().getUTCMilliseconds(),
         value: newTodo,
       },
     ]);
