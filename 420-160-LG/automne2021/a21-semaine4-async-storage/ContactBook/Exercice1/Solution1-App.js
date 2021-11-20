@@ -1,45 +1,16 @@
 /**
- * Exercice 3
- * Permettre la suppression d'un contact dans firebase
+ * Exercice 1
+ * Ajouter les contacts dans la bd memoire avec asyn-storage
  */
-import React, { useEffect, useState } from "react";
-import {
-  Text,
-  View,
-  StyleSheet,
-  TextInput,
-  Button,
-  Alert,
-  FlatList,
-  TouchableOpacity,
-} from "react-native";
+import React, { useState } from "react";
+import { Text, View, StyleSheet, TextInput, Button, Alert } from "react-native";
 import Header from "./components/Header";
 import Constants from "./constants";
-import { createContact, getContacts, deleteContact } from "./database/contacts";
-import { Ionicons } from "@expo/vector-icons";
+import { createContact } from "./database/contacts";
 
 export default function App() {
   const [fullName, setFullName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
-  const [contacts, setContacts] = useState([]);
-
-  useEffect(() => {
-    const subscription = getContacts((data) => {
-      let results = [];
-      Object.keys(data).forEach((item) => {
-        results.push(data[item]);
-      });
-      setContacts(results);
-    });
-
-    return () => {
-      /**
-       * Detacher les callbacks
-       * https://firebase.google.com/docs/database/admin/retrieve-data#section-detaching-callbacks
-       */
-      subscription.off();
-    };
-  }, []);
 
   const addContact = () => {
     if (fullName.length === 0) {
@@ -57,23 +28,6 @@ export default function App() {
     createContact(fullName, phoneNumber);
 
     Alert.alert("Nouveau contact", "Le contact est ajouté dans le repertoire!");
-  };
-
-  const renderItem = ({ item }) => {
-    return (
-      <View style={styles.contactItem}>
-        <View>
-          <Ionicons name="person-circle" size={36} color={Constants.primary} />
-        </View>
-        <View style={{ flexDirection: "column", flex: 1 }}>
-          <Text>{item.fullName}</Text>
-          <Text>{item.phoneNumber}</Text>
-        </View>
-        <TouchableOpacity onPress={() => deleteContact(item.id)}>
-          <Ionicons name="trash" size={26} color={Constants.primary} />
-        </TouchableOpacity>
-      </View>
-    );
   };
 
   return (
@@ -106,11 +60,6 @@ export default function App() {
           onPress={addContact}
         />
       </View>
-      <FlatList
-        data={contacts}
-        renderItem={renderItem}
-        keyExtractor={(item) => item.id}
-      />
     </>
   );
 }
@@ -131,13 +80,5 @@ const styles = StyleSheet.create({
   },
   addBtn: {
     margin: 12,
-  },
-  contactItem: {
-    flexDirection: "row",
-    alignItems: "center",
-    margin: 8,
-    backgroundColor: "#e6e6ff",
-    padding: 8,
-    borderRadius: 6,
   },
 });

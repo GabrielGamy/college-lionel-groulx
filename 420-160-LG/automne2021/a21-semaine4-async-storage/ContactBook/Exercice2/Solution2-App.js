@@ -1,6 +1,6 @@
 /**
- * Exercice 3
- * Permettre la suppression d'un contact dans firebase
+ * Exercice 2
+ * Obtenir et afficher les contacts sauvegardés dans la base de données
  */
 import React, { useEffect, useState } from "react";
 import {
@@ -11,11 +11,10 @@ import {
   Button,
   Alert,
   FlatList,
-  TouchableOpacity,
 } from "react-native";
 import Header from "./components/Header";
 import Constants from "./constants";
-import { createContact, getContacts, deleteContact } from "./database/contacts";
+import { createContact, getContacts } from "./database/contacts";
 import { Ionicons } from "@expo/vector-icons";
 
 export default function App() {
@@ -24,21 +23,11 @@ export default function App() {
   const [contacts, setContacts] = useState([]);
 
   useEffect(() => {
-    const subscription = getContacts((data) => {
-      let results = [];
-      Object.keys(data).forEach((item) => {
-        results.push(data[item]);
-      });
+    async function fetchContacts() {
+      const results = await getContacts();
       setContacts(results);
-    });
-
-    return () => {
-      /**
-       * Detacher les callbacks
-       * https://firebase.google.com/docs/database/admin/retrieve-data#section-detaching-callbacks
-       */
-      subscription.off();
-    };
+    }
+    fetchContacts();
   }, []);
 
   const addContact = () => {
@@ -65,13 +54,10 @@ export default function App() {
         <View>
           <Ionicons name="person-circle" size={36} color={Constants.primary} />
         </View>
-        <View style={{ flexDirection: "column", flex: 1 }}>
+        <View style={{ flexDirection: "column" }}>
           <Text>{item.fullName}</Text>
           <Text>{item.phoneNumber}</Text>
         </View>
-        <TouchableOpacity onPress={() => deleteContact(item.id)}>
-          <Ionicons name="trash" size={26} color={Constants.primary} />
-        </TouchableOpacity>
       </View>
     );
   };

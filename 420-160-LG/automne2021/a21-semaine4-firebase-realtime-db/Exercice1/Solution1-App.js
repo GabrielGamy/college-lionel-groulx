@@ -55,7 +55,11 @@ export default function App() {
         />
       </View>
       <View style={styles.addBtn}>
-        <Button title="Add Contact" onPress={addContact} />
+        <Button
+          title="Add Contact"
+          color={Constants.primary}
+          onPress={addContact}
+        />
       </View>
     </>
   );

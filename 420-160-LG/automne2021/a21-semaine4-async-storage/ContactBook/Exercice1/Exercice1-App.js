@@ -1,6 +1,6 @@
 /**
  * Exercice 1
- * Ajouter les contacts dans une base de données Firebase (realtime db)
+ * Ajouter les contacts dans la bd memoire avec asyn-storage
  */
 import React, { useState } from "react";
 import { Text, View, StyleSheet, TextInput, Button } from "react-native";

@@ -2,10 +2,10 @@
  * Exercice 1
  * Ajouter les contacts dans une base de données Firebase (realtime db)
  */
-import React, { useState } from 'react';
-import { Text, View, StyleSheet, TextInput, Button } from 'react-native';
-import Header from '../../components/Header';
-import Constants from '../../constants';
+import React, { useState } from "react";
+import { Text, View, StyleSheet, TextInput, Button } from "react-native";
+import Header from "./components/Header";
+import Constants from "./constants";
 
 export default function App() {
   const [fullName, setFullName] = useState("");
@@ -35,7 +35,7 @@ export default function App() {
         />
       </View>
       <View style={styles.addBtn}>
-        <Button title="Add Contact" />
+        <Button title="Add Contact" color={Constants.primary} />
       </View>
     </>
   );
@@ -44,7 +44,7 @@ export default function App() {
 const styles = StyleSheet.create({
   ajouterText: {
     paddingTop: 16,
-    textAlign: 'center',
+    textAlign: "center",
     fontSize: 18,
     color: Constants.primary,
   },
@@ -53,9 +53,9 @@ const styles = StyleSheet.create({
     margin: 12,
     borderWidth: 1,
     padding: 10,
-    borderRadius: 10
+    borderRadius: 10,
   },
   addBtn: {
     margin: 12,
-  }
+  },
 });

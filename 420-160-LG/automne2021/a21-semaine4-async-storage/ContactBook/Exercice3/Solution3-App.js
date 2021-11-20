@@ -22,26 +22,21 @@ export default function App() {
   const [fullName, setFullName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [contacts, setContacts] = useState([]);
+  const [isContactsLoaded, setIsContactsLoaded] = useState(false);
 
   useEffect(() => {
-    const subscription = getContacts((data) => {
-      let results = [];
-      Object.keys(data).forEach((item) => {
-        results.push(data[item]);
-      });
+    async function fetchContacts() {
+      const results = await getContacts();
       setContacts(results);
-    });
+    }
 
-    return () => {
-      /**
-       * Detacher les callbacks
-       * https://firebase.google.com/docs/database/admin/retrieve-data#section-detaching-callbacks
-       */
-      subscription.off();
-    };
-  }, []);
+    if (isContactsLoaded === false) {
+      fetchContacts();
+      setIsContactsLoaded(true);
+    }
+  }, [isContactsLoaded]);
 
-  const addContact = () => {
+  const addContact = async () => {
     if (fullName.length === 0) {
       Alert.alert("Erreur", "Le nom du contact est invalide!");
       return;
@@ -54,7 +49,8 @@ export default function App() {
       return;
     }
 
-    createContact(fullName, phoneNumber);
+    await createContact(fullName, phoneNumber);
+    setIsContactsLoaded(false);
 
     Alert.alert("Nouveau contact", "Le contact est ajouté dans le repertoire!");
   };
@@ -69,7 +65,12 @@ export default function App() {
           <Text>{item.fullName}</Text>
           <Text>{item.phoneNumber}</Text>
         </View>
-        <TouchableOpacity onPress={() => deleteContact(item.id)}>
+        <TouchableOpacity
+          onPress={async () => {
+            await deleteContact(item.id);
+            setIsContactsLoaded(false);
+          }}
+        >
           <Ionicons name="trash" size={26} color={Constants.primary} />
         </TouchableOpacity>
       </View>

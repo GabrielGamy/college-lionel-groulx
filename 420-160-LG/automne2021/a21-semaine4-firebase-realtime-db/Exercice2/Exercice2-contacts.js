@@ -2,7 +2,6 @@
  * Exercice 2
  * Obtenir et afficher les contacts sauvegardés dans la base de données
  */
-
 import firebase from "./firebase";
 
 const createContact = (fullName, phoneNumber) => {
