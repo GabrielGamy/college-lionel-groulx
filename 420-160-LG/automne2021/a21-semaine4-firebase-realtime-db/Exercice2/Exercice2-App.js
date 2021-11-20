@@ -1,15 +1,34 @@
 /**
- * Exercice 1
- * Ajouter les contacts dans une base de données Firebase (realtime db)
+ * Exercice 2
+ * Obtenir et afficher les contacts sauvegardés dans la base de données
  */
 import React, { useState } from "react";
-import { Text, View, StyleSheet, TextInput, Button } from "react-native";
+import { Text, View, StyleSheet, TextInput, Button, Alert } from "react-native";
 import Header from "./components/Header";
 import Constants from "./constants";
+import { createContact } from "./database/contacts";
 
 export default function App() {
   const [fullName, setFullName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
+
+  const addContact = () => {
+    if (fullName.length === 0) {
+      Alert.alert("Erreur", "Le nom du contact est invalide!");
+      return;
+    }
+
+    const phone = Number(phoneNumber);
+
+    if (phoneNumber.length === 0 || isNaN(phone)) {
+      Alert.alert("Erreur", "Le numero du contact est invalide!");
+      return;
+    }
+
+    createContact(fullName, phoneNumber);
+
+    Alert.alert("Nouveau contact", "Le contact est ajouté dans le repertoire!");
+  };
 
   return (
     <>
@@ -28,14 +47,14 @@ export default function App() {
       <View>
         <TextInput
           style={styles.input}
-          onChangeText={(text) => setPhoneNumber(phoneNumber)}
+          onChangeText={(text) => setPhoneNumber(text)}
           value={phoneNumber}
           placeholder="Saisir le numéro du contact"
           keyboardType="numeric"
         />
       </View>
       <View style={styles.addBtn}>
-        <Button title="Add Contact" />
+        <Button title="Add Contact" onPress={addContact} />
       </View>
     </>
   );
