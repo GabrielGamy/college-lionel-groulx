@@ -11,11 +11,10 @@ import {
   Button,
   Alert,
   FlatList,
-  TouchableOpacity,
 } from "react-native";
 import Header from "./components/Header";
 import Constants from "./constants";
-import { createContact, getContacts, deleteContact } from "./database/contacts";
+import { createContact, getContacts } from "./database/contacts";
 import { Ionicons } from "@expo/vector-icons";
 
 export default function App() {
@@ -59,33 +58,16 @@ export default function App() {
     Alert.alert("Nouveau contact", "Le contact est ajouté dans le repertoire!");
   };
 
-  const askBeforeDelete = (contactid) => {
-    Alert.alert("Suppression", "Voulez-vous vraiment supprimer le contact ?", [
-      {
-        text: "Annuler",
-      },
-      {
-        text: "Oui",
-        onPress: () => {
-          deleteContact(contactid);
-        },
-      },
-    ]);
-  };
-
   const renderItem = ({ item }) => {
     return (
       <View style={styles.contactItem}>
         <View>
           <Ionicons name="person-circle" size={36} color={Constants.primary} />
         </View>
-        <View style={{ flexDirection: "column", flex: 1 }}>
+        <View style={{ flexDirection: "column" }}>
           <Text>{item.fullName}</Text>
           <Text>{item.phoneNumber}</Text>
         </View>
-        <TouchableOpacity onPress={() => askBeforeDelete(item.id)}>
-          <Ionicons name="trash" size={26} color={Constants.primary} />
-        </TouchableOpacity>
       </View>
     );
   };

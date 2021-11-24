@@ -27,11 +27,4 @@ const getContacts = (callback) => {
   return dbContactsRef;
 };
 
-const deleteContact = (contactId) => {
-  firebase
-    .database()
-    .ref("contacts/" + contactId)
-    .remove();
-};
-
-export { createContact, getContacts, deleteContact };
+export { createContact, getContacts };
