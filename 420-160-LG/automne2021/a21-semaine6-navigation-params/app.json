@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "a21-semaine8-navigation",
-    "slug": "snack-cdd96223-83d5-4d1a-ae58-10504ac99a9f",
+    "name": "a21-semaine6-navigation-params",
+    "slug": "snack-422594eb-3d28-4515-8dff-bdc2a54fe255",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -28,6 +28,6 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "description": "Programmation d'applications mobiles 2 - Collège Lionel-Groulx * Navigation entre les écrans * Stack * Drawer * Tab"
+    "description": "Programmation d'applications mobiles 2 - Collège Lionel-Groulx * Navigation entre les écrans * Passer les paramètres "
   }
 }
