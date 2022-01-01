@@ -1,0 +1,37 @@
+
+/**
+ * Cette version prend en consideration la date d'expiration du token.
+ * On verifie que la date du token n'est pas arrivée à échéance.
+ */
+export const isUserConnected = async () => {
+  try {
+    let userData = await AsyncStorage.getItem('USER_DATA');
+    if(userData !== null) {
+      userData = JSON.parse(userData);
+      const currentDate = new Date();
+      if(userData.expiresInDate > currentDate.getSeconds()) {
+        return false;
+      }
+      return true;
+    }
+    return false;
+  } catch (e) {
+    console.log('isUserConnected Error: ', e);
+  } finally {
+    return false;
+  }
+};
+
+/**
+ * Cette version prend en consideration la date d'expiration du token.
+ * On conservce la date d'expiration en seconde dans userInfo.expiresInDate
+ */
+export const saveUserInfo = async (userInfo) => {
+  try {
+    const currentDate = new Date();
+    userInfo.expiresInDate = currentDate.getSeconds() + userInfo.expiresIn;
+    await AsyncStorage.setItem('USER_DATA', JSON.stringify(userInfo));
+  } catch (e) {
+    console.log('saveUserInfo Error: ', e);
+  }
+};

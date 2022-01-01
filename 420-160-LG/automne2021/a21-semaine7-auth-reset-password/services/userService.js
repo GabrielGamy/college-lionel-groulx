@@ -89,3 +89,27 @@ export const getCommonError = (code) => {
       return `Une erreur inhabituelle s'est produite ! Veuillez réessayer (code: ${code}).`;
   }
 };
+
+/**
+ * API REST - Send password reset email
+ * https://firebase.google.com/docs/reference/rest/auth#section-send-password-reset-email
+ */
+export const sendPasswordResetEmail = (email, callback) => {
+  const resquestUrl = `https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=${API_KEY}`
+  const requestBody = { requestType:"PASSWORD_RESET", email };
+
+  fetch(resquestUrl, {
+    method: 'POST',
+    body: JSON.stringify(requestBody),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      callback({ error: data.error, data });
+    })
+    .catch((error) => {
+      callback({ error, data: null });
+    });
+};

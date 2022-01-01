@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "a21-semaine7-firebaseauth",
-    "slug": "snack-cc32897e-0224-44f4-a64b-7bf87b7b0639",
+    "name": "a21-semaine7-auth-reset-password",
+    "slug": "snack-8439cca6-4b3a-438f-968f-e4cb397b8667",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -28,6 +28,6 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "description": "Programmation d'applications mobiles 2 - Collège Lionel-Groulx * Authentification avec firebase"
+    "description": "Programmation d'applications mobiles 2 - Collège Lionel-Groulx * Modificaiton du mot de passe"
   }
 }
