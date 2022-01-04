@@ -38,7 +38,7 @@ export default function UserContacts(props) {
       <TouchableOpacity
         onPress={() =>
           props.navigation.navigate("Discussions", {
-            contactInfo: item,
+            toUser: item,
           })
         }
         style={{

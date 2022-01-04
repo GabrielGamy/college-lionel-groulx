@@ -8,6 +8,7 @@ import UserContacts from "../screens/UserContacts";
 import Discussions from "../screens/Discussions";
 
 import { Feather, Ionicons } from "@expo/vector-icons";
+import Constants from "../Constants";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -23,11 +24,11 @@ const Tabs = () => {
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
-        tabBarActiveTintColor: "#15803D",
+        tabBarActiveTintColor: Constants.primary,
         tabBarInactiveTintColor: "gray",
         headerShown: true,
         headerStyle: {
-          backgroundColor: "#15803D",
+          backgroundColor: Constants.primary,
         },
         headerTintColor: "#fff",
       })}
@@ -72,7 +73,7 @@ export default function AppNavigation() {
       <Stack.Navigator
         screenOptions={({ route }) => ({
           headerStyle: {
-            backgroundColor: "#15803D",
+            backgroundColor: Constants.primary,
           },
           headerTintColor: "#fff",
         })}

@@ -7,8 +7,9 @@ import {
   TextInput,
   Alert,
 } from "react-native";
-import { addUser } from "../database/users";
+import { addUser, getCurrentUser } from "../database/users";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import Constants from "../Constants";
 
 function Inscription(props) {
   const [fullName, setFullName] = useState("");
@@ -18,7 +19,7 @@ function Inscription(props) {
   const [phone, setPhone] = useState("");
 
   useEffect(async () => {
-    const loginInfo = await AsyncStorage.getItem("loginInfo");
+    const loginInfo = await getCurrentUser();
     if (loginInfo !== null) {
       // We have data!!
       // navigate to the home or any other screen
@@ -26,7 +27,7 @@ function Inscription(props) {
     }
   }, []);
 
-  const addConctact = async () => {
+  const addConctact = () => {
     // verifier que les donnees sont valides
     if (fullName.length === 0 || email.length === 0 || phone.length === 0) {
       Alert.alert("Erreur", "Les informations sont invalides!");
@@ -39,17 +40,12 @@ function Inscription(props) {
       email,
       phone,
     };
-    addUser(user);
-
-    // Se rappeler de l'utilisateur
-    try {
+    addUser(user, async () => {
+      // Se rappeler de l'utilisateur
       await AsyncStorage.setItem("loginInfo", JSON.stringify(user));
-    } catch (e) {
-      console.log(e);
-    }
-
-    // naviguer vers l'ecran Home
-    props.navigation.navigate("Home");
+      // naviguer vers l'ecran Home
+      props.navigation.navigate("Home");
+    });
   };
 
   return (
@@ -113,7 +109,7 @@ const styles = StyleSheet.create({
   btn: {
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#15803D",
+    backgroundColor: Constants.primary,
     padding: 10,
     margin: 12,
     borderRadius: 6,
