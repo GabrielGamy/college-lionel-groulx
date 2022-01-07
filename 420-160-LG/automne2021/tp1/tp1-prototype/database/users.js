@@ -2,6 +2,11 @@ import { database } from "./firebase";
 import { ref, set, onValue, push, child } from "firebase/database";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
+const logoutUser = async (callback) => {
+  await AsyncStorage.clear();
+  callback();
+};
+
 const addUser = (user, callback) => {
   /**
    * Verifier si ce user existe ou pas avant de faire un ajout.
@@ -48,4 +53,4 @@ const getUsers = (callback) => {
   );
 };
 
-export { getCurrentUser, getUsers, addUser };
+export { getCurrentUser, getUsers, addUser, logoutUser };

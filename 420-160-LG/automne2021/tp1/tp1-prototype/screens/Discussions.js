@@ -21,6 +21,13 @@ function Discussions(props) {
   const { toUser } = props.route.params;
   const toUserPhoneInfo = toUser.phoneNumbers[0];
 
+  useEffect(() => {
+    // Remplacer le titre de l'ecran par le nom de notre contact.
+    props.navigation.setOptions({
+      title: `${toUser.firstName} ${toUser.lastName}`,
+    });
+  }, []);
+
   useEffect(async () => {
     const userData = await getCurrentUser();
     if (!userData) {
@@ -43,22 +50,42 @@ function Discussions(props) {
   }, [fromUser, isMessageSent]);
 
   const sendMessage = () => {
-    const newMessage = {
-      from: fromUser.phone,
-      to: toUserPhoneInfo.number,
-      text: messageText,
-    };
-    addMessage(newMessage);
-    setMessageText("");
-    setIsMessageSent(true);
+    if (messageText.length) {
+      const newMessage = {
+        from: fromUser.phone,
+        to: toUserPhoneInfo.number,
+        text: messageText,
+        name: {
+          from: fromUser.fullName,
+          to: `${toUser.firstName} ${toUser.lastName}`,
+        },
+      };
+      addMessage(newMessage);
+      setMessageText("");
+      setIsMessageSent(true);
+    }
   };
 
   const renderMessageItem = ({ item }) => {
-    const color = item.from === fromUser.phone ? "white" : "green";
+    let color = "green";
+    let textColor = "white";
+    let position = "flex-end";
+
+    if (item.from === fromUser.phone) {
+      color = "white";
+      textColor = "green";
+      position = "flex-start";
+    }
+
     return (
-      <View>
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: position,
+        }}
+      >
         <View style={[{ backgroundColor: color }, styles.messageItem]}>
-          <Text>{item.text}</Text>
+          <Text style={{ color: textColor }}>{item.text}</Text>
         </View>
       </View>
     );

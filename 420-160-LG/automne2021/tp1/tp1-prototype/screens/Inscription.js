@@ -27,7 +27,7 @@ function Inscription(props) {
     }
   }, []);
 
-  const addConctact = () => {
+  const registerUser = () => {
     // verifier que les donnees sont valides
     if (fullName.length === 0 || email.length === 0 || phone.length === 0) {
       Alert.alert("Erreur", "Les informations sont invalides!");
@@ -40,6 +40,7 @@ function Inscription(props) {
       email,
       phone,
     };
+
     addUser(user, async () => {
       // Se rappeler de l'utilisateur
       await AsyncStorage.setItem("loginInfo", JSON.stringify(user));
@@ -88,7 +89,7 @@ function Inscription(props) {
           onChangeText={setPhone}
         />
       </View>
-      <TouchableOpacity style={styles.btn} onPress={addConctact}>
+      <TouchableOpacity style={styles.btn} onPress={registerUser}>
         <Text style={{ color: "white" }}>Inscription</Text>
       </TouchableOpacity>
     </View>

@@ -6,6 +6,7 @@ import Inbox from "../screens/Inbox";
 import Inscription from "../screens/Inscription";
 import UserContacts from "../screens/UserContacts";
 import Discussions from "../screens/Discussions";
+import Settings from "../screens/Settings";
 
 import { Feather, Ionicons } from "@expo/vector-icons";
 import Constants from "../Constants";
@@ -56,6 +57,20 @@ const Tabs = () => {
           tabBarIcon: ({ color, size }) => (
             <TabIcon
               name="people-circle"
+              color={color}
+              size={size}
+              IsIonicons={true}
+            />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Settings"
+        component={Settings}
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <TabIcon
+              name="settings"
               color={color}
               size={size}
               IsIonicons={true}
