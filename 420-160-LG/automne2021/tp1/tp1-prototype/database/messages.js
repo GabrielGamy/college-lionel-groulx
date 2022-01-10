@@ -11,7 +11,66 @@ const addMessage = (messageData) => {
     ...messageData,
   };
 
+  addLastMessage(
+    messageData.to,
+    messageData.from,
+    messageData.name.from,
+    messageData.name.to,
+    messageData.text
+  );
+
+  addLastMessage(
+    messageData.from,
+    messageData.to,
+    messageData.name.to,
+    messageData.name.from,
+    messageData.text
+  );
+
   set(ref(database, "messages/" + newMessage.id), newMessage);
+};
+
+const addLastMessage = (
+  fromPhone,
+  toPhone,
+  fromFullName,
+  toFullName,
+  message
+) => {
+  fromPhone = formatPhone(fromPhone);
+  toPhone = formatPhone(toPhone);
+
+  const newMessage = {
+    message,
+    name: {
+      from: fromFullName,
+      to: toFullName,
+    },
+    creationDate: new Date().toISOString(),
+  };
+
+  set(ref(database, `lastMessages/${toPhone}/${fromPhone}`), newMessage);
+};
+
+const getLastMessages = (toPhone, callback) => {
+  toPhone = formatPhone(toPhone);
+  const messagesRef = ref(database, `lastMessages/${toPhone}/`);
+
+  onValue(
+    messagesRef,
+    (snapshot) => {
+      const messageObjList = snapshot.val() || {};
+      let messages = [];
+
+      Object.keys(messageObjList).forEach((phone) => {
+        const theMessage = { ...messageObjList[phone], phone };
+        messages.push(theMessage);
+      });
+
+      callback(messages);
+    },
+    { onlyOnce: true }
+  );
 };
 
 const getMessages = (fromUserPhone, toUserPhone, callback) => {
@@ -87,4 +146,10 @@ const areSamePhones = (firstPhone, secondPhone) => {
   return formatPhone(firstPhone) === formatPhone(secondPhone);
 };
 
-export { addMessage, getMessages, getMessagesAll };
+export {
+  addMessage,
+  addLastMessage,
+  getMessages,
+  getLastMessages,
+  getMessagesAll,
+};

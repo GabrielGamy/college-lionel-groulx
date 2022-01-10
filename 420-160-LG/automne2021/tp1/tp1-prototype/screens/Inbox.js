@@ -6,7 +6,7 @@ import {
   FlatList,
   TouchableOpacity,
 } from "react-native";
-import { getMessagesAll } from "../database/messages";
+import { getLastMessages } from "../database/messages";
 import { getCurrentUser } from "../database/users";
 import { FontAwesome } from "@expo/vector-icons";
 import Constants from "../Constants";
@@ -14,6 +14,7 @@ import Constants from "../Constants";
 function Inbox(props) {
   const [currentUser, setCurrentUser] = useState();
   const [messages, setMessages] = useState([]);
+  const [loadLastMessages, setLoadLastMessages] = useState(false);
 
   useEffect(async () => {
     const userData = await getCurrentUser();
@@ -25,12 +26,20 @@ function Inbox(props) {
   }, []);
 
   useEffect(() => {
+    const unsubscribe = props.navigation.addListener("focus", () => {
+      setLoadLastMessages(true);
+    });
+    return unsubscribe;
+  }, [props.navigation]);
+
+  useEffect(() => {
     if (currentUser) {
-      getMessagesAll(currentUser.phone, (data) => {
+      getLastMessages(currentUser.phone, (data) => {
         setMessages(data);
+        setLoadLastMessages(false);
       });
     }
-  }, [currentUser]);
+  }, [currentUser, loadLastMessages]);
 
   const renderMessages = ({ item }) => {
     return (
@@ -39,11 +48,11 @@ function Inbox(props) {
         onPress={() => {
           props.navigation.navigate("Discussions", {
             toUser: {
-              firstName: item.name.from.split(" ")[0],
-              lastName: item.name.from.split(" ")[1],
+              firstName: item.name.to.split(" ")[0],
+              lastName: item.name.to.split(" ")[1],
               phoneNumbers: [
                 {
-                  number: item.from,
+                  number: item.phone,
                 },
               ],
             },
@@ -55,9 +64,9 @@ function Inbox(props) {
         </View>
         <View style={{ marginHorizontal: 10 }}>
           <Text style={{ fontWeight: "bold", fontSize: 20 }}>
-            {item.name.from}
+            {item.name.to}
           </Text>
-          <Text>{item.text}</Text>
+          <Text>{item.message}</Text>
         </View>
       </TouchableOpacity>
     );
@@ -71,7 +80,7 @@ function Inbox(props) {
       <FlatList
         data={messages}
         renderItem={renderMessages}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => item.phone}
       />
     </View>
   );
