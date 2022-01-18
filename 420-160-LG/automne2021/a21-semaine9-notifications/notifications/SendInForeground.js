@@ -28,7 +28,7 @@ const SendInForeground = () => {
   const planifierNotification = async () => {
     await Notifications.scheduleNotificationAsync({
       content: {
-        title: "Nuveau message 📬",
+        title: "Nouveau message 📬",
         body: "Ouvrez l'application pour voir vos nouveaux messages.",
       },
       trigger: { seconds: 5 },
