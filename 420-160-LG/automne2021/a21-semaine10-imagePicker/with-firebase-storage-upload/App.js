@@ -1,6 +1,4 @@
 import * as ImagePicker from "expo-image-picker";
-import { getApps, initializeApp } from "firebase/app";
-import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import React from "react";
 import {
   ActivityIndicator,
@@ -14,22 +12,7 @@ import {
   Alert,
 } from "react-native";
 import uuid from "uuid";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyCUc-ItRfC-Ac7WJVybHgi7CNtbPsU3oO4",
-  authDomain: "clg-automne2021-demo-firebase.firebaseapp.com",
-  databaseURL:
-    "https://clg-automne2021-demo-firebase-default-rtdb.firebaseio.com",
-  projectId: "clg-automne2021-demo-firebase",
-  storageBucket: "clg-automne2021-demo-firebase.appspot.com",
-  messagingSenderId: "617820600286",
-  appId: "1:617820600286:web:c2857e916527d54dc10f4f",
-};
-
-// Editing this file with fast refresh will reinitialize the app on every refresh, let's not do that
-if (!getApps().length) {
-  initializeApp(firebaseConfig);
-}
+import { uploadImageAsync } from "./database/images";
 
 // Firebase sets some timeers for a long period, which will trigger some warnings. Let's turn that off for this example
 LogBox.ignoreLogs([`Setting a timer for a long period`]);
@@ -130,7 +113,7 @@ export default class App extends React.Component {
       this.setState({ uploading: true });
 
       if (!pickerResult.cancelled) {
-        const uploadUrl = await uploadImageAsync(pickerResult.uri);
+        const uploadUrl = await uploadImageAsync(pickerResult.uri, uuid.v4());
         this.setState({ image: uploadUrl });
       }
     } catch (e) {
@@ -140,33 +123,6 @@ export default class App extends React.Component {
       this.setState({ uploading: false });
     }
   };
-}
-
-async function uploadImageAsync(uri) {
-  // Why are we using XMLHttpRequest? See:
-  // https://github.com/expo/expo/issues/2402#issuecomment-443726662
-  const blob = await new Promise((resolve, reject) => {
-    const xhr = new XMLHttpRequest();
-    xhr.onload = function () {
-      resolve(xhr.response);
-    };
-    xhr.onerror = function (e) {
-      console.log(e);
-      reject(new TypeError("Network request failed"));
-    };
-    xhr.responseType = "blob";
-    xhr.open("GET", uri, true);
-    xhr.send(null);
-  });
-
-  const imagePath = `images/${uuid.v4()}`;
-  const fileRef = ref(getStorage(), imagePath);
-  await uploadBytes(fileRef, blob);
-
-  // We're done with the blob, close and release it
-  blob.close();
-
-  return await getDownloadURL(fileRef);
 }
 
 const styles = StyleSheet.create({
