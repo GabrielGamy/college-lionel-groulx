@@ -9,5 +9,23 @@
   <body>
     <h1>Outlook - Collège Lionel-Groulx</h1>
     <h2>Envoyer le courriel</h2>
+    <form action="mailto:someone@clg.qc.ca" method="post" enctype="text/plain">
+      <div>
+        <label for="to">À:</label>
+        <input id="to" type="text" name="to" />
+      </div>
+      <div>
+        <label for="subject">Objet:</label>
+        <input id="subject" type="text" name="subject" />
+      </div>
+      <div>
+        <label for="message">Votre Message:</label><br />
+        <textarea id="message" rows="10" cols="80"></textarea>
+      </div>
+      <div>
+        <input type="submit" value="Envoyer" />
+        <input type="reset" value="Effacer" />
+      </div>
+    </form>
   </body>
 </html>
