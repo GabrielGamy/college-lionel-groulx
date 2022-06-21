@@ -5,10 +5,21 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Rappel Html et CSS</title>
+    <style>
+      .body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .header {
+        color: teal;
+      }
+    </style>
   </head>
-  <body>
-    <h1>Outlook - Collège Lionel-Groulx</h1>
-    <h2>Envoyer le courriel</h2>
+  <body class="body">
+    <h1 class="header">Outlook - Collège Lionel-Groulx</h1>
+    <h2 class="header">Envoyer le courriel</h2>
     <form action="mailto:someone@clg.qc.ca" method="post" enctype="text/plain">
       <div>
         <label for="to">À:</label>
