@@ -1,0 +1,68 @@
+.error {
+  margin: 32px;
+  justify-content: center;
+  align-items: center;
+  font-size: x-large;
+  color: #92320c;
+  display: flex;
+}
+
+.meal-bg {
+  width: 100%;
+  height: 500px;
+  background-color: #f3eaea;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+.meal-bg-image {
+  width: 1000px;
+  height: 100%;
+}
+
+.meal-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 32px;
+}
+
+.meal-details__description {
+  flex: 1;
+}
+
+.meal-details__description-info {
+  font-size: large;
+}
+
+.meal-details__description-text {
+  max-width: 800px;
+}
+
+.button,
+.button-cancel {
+  cursor: pointer;
+  font: inherit;
+  border: none;
+  background-color: #deaa4b;
+  color: white;
+  padding: 0.75rem 3rem;
+  border-radius: 25px;
+  font-weight: bold;
+  margin-left: 16px;
+}
+
+.button:hover,
+.button:active {
+  background-color: orange;
+}
+
+.button:hover .badge,
+.button:active .badge {
+  background-color: #92320c;
+}
+
+.button-cancel {
+  background-color: #ff4136;
+}

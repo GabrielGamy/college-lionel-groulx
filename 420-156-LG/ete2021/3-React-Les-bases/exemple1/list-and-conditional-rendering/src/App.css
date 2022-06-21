@@ -1,0 +1,10 @@
+.App {
+  text-align: center;
+}
+
+.App-header {
+  background-color: teal;
+  max-height: 200px;
+  padding: 16px;
+  color: white;
+}

@@ -1,0 +1,11 @@
+.meal-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.meal-content__icons {
+  flex-basis: 80px;
+  display: flex;
+  justify-content: space-between;
+}

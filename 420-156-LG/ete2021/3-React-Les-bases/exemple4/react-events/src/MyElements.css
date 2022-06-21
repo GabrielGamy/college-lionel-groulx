@@ -1,0 +1,20 @@
+.my-elm {
+  width: 300px;
+  align-self: center;
+  margin: 16px;
+}
+
+.my-div {
+  border: 1px solid red;
+  height: 100px;
+}
+
+.my-btn {
+  border: 1px solid black;
+  height: 40px;
+}
+
+.my-input {
+  border: 1px solid teal;
+  height: 50px;
+}
