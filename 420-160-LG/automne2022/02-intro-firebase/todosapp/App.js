@@ -21,7 +21,6 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import { db } from "./firebase";
-import { async } from "@firebase/util";
 
 function App() {
   const [todoText, setTodoText] = useState("");
