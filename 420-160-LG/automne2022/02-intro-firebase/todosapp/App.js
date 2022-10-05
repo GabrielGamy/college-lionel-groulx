@@ -11,6 +11,7 @@ import {
   Alert,
 } from "react-native";
 import Header from "./components/header";
+import { Ionicons } from "@expo/vector-icons";
 
 import {
   collection,
@@ -25,10 +26,11 @@ import { db } from "./firebase";
 function App() {
   const [todoText, setTodoText] = useState("");
   const [todos, setTodos] = useState([]);
+  const [email, setEmail] = useState("");
 
   useEffect(() => {
     loadTodos();
-  }, []);
+  }, [email]);
 
   const onChangeTodoText = (text) => {
     setTodoText(text);
@@ -40,8 +42,16 @@ function App() {
 
   const addTodoText = async () => {
     try {
+      const user = await getUser(email);
+      if (!user) {
+        Alert.alert("Add Todo", "User not found!");
+        return;
+      }
+
       const docRef = await addDoc(collection(db, "todos"), {
         value: todoText,
+        userId: user.id,
+        userEmail: user.email,
       });
 
       setTodos([
@@ -100,24 +110,71 @@ function App() {
   };
 
   const loadTodos = async () => {
-    const results = [];
+    const user = await getUser(email);
+    if (user) {
+      const results = [];
+      const querySnapshot = await getDocs(collection(db, "todos"));
 
-    const querySnapshot = await getDocs(collection(db, "todos"));
+      querySnapshot.forEach((doc) => {
+        const todo = {
+          id: doc.id,
+          ...doc.data(),
+        };
 
+        if (todo.userEmail === email) {
+          results.push(todo);
+        }
+      });
+
+      setTodos(results);
+    }
+  };
+
+  const addUser = async () => {
+    try {
+      const user = await getUser(email);
+      if (user) {
+        Alert.alert("Add User", "User already registered!");
+      }
+
+      await addDoc(collection(db, "users"), { email: email });
+
+      Alert.alert("New User", "New User Added!");
+    } catch (e) {
+      console.error("Error adding document: ", e);
+    }
+  };
+
+  const getUser = async (email) => {
+    const userList = [];
+    const querySnapshot = await getDocs(collection(db, "users"));
     querySnapshot.forEach((doc) => {
-      const todo = {
+      const user = {
         id: doc.id,
         ...doc.data(),
       };
-      results.push(todo);
+      userList.push(user);
     });
-
-    setTodos(results);
+    return userList.find((u) => u.email == email);
   };
 
   return (
     <View style={styles.container}>
       <Header />
+      <View style={styles.userForm}>
+        <TextInput
+          style={[styles.input, { flex: 1 }]}
+          placeholder="Enter your email"
+          autoComplete="email"
+          keyboardType="email-address"
+          textContentType="emailAddress"
+          value={email}
+          onChangeText={(text) => setEmail(text)}
+        />
+        <TouchableOpacity onPress={addUser}>
+          <Ionicons name="ios-add-circle" size={42} color="#1E90FF" />
+        </TouchableOpacity>
+      </View>
       <Image style={styles.image} source={require("./assets/todo.png")} />
       <View style={styles.todoForm}>
         <TextInput
@@ -156,6 +213,14 @@ const styles = StyleSheet.create({
     marginHorizontal: 16,
     backgroundColor: "#F8F8FF",
     padding: 16,
+  },
+  userForm: {
+    marginHorizontal: 16,
+    marginVertical: 8,
+    backgroundColor: "#F8F8FF",
+    padding: 8,
+    flexDirection: "row",
+    alignItems: "center",
   },
   input: {
     height: 30,
