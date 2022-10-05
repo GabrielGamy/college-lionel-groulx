@@ -8,6 +8,7 @@ import {
   Button,
 } from "@react-native-material/core";
 import i18n from "../data/languages";
+import constants from "../constants";
 
 export default class DiscoverCard extends React.Component {
   openWebsite = async (websiteUrl) => {
@@ -35,7 +36,7 @@ export default class DiscoverCard extends React.Component {
                   key="learn-more"
                   variant="text"
                   title={i18n.t("learn_more")}
-                  color="#D80621"
+                  color={constants.primaryColor}
                   compact
                   onPress={() => this.openWebsite(item.website)}
                 />

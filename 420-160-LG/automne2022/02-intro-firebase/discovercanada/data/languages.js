@@ -18,6 +18,11 @@ const fr = {
   Nunavut: "Nunavut",
   Yukon: "Yukon",
   learn_more: "Découvrir",
+  close: "Fermer",
+  email: "Courriel",
+  cancel: "Annuler",
+  send: "Envoyer",
+  thankyoufeedback: "Merci pour votre message!",
 };
 
 const en = {
@@ -37,6 +42,11 @@ const en = {
   Nunavut: "Nunavut",
   Yukon: "Yukon",
   learn_more: "Learn More",
+  close: "Close",
+  email: "Email",
+  cancel: "Cancel",
+  send: "Send",
+  thankyoufeedback: "Thank you for your feedback!",
 };
 
 const i18n = new I18n({ en, fr });

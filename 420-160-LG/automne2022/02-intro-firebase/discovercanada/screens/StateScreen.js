@@ -6,6 +6,7 @@ import i18n from "../data/languages";
 
 import { get, ref, child, getDatabase } from "firebase/database";
 import { db } from "../firebase";
+import FeedbackModal from "./FeedbackModal";
 
 const StateScreen = () => {
   const [states, setStates] = useState([]);
@@ -44,6 +45,7 @@ const StateScreen = () => {
         renderItem={renderStateItem}
         style={{ flex: 1 }}
       />
+      <FeedbackModal />
     </View>
   );
 };
@@ -56,6 +58,10 @@ const styles = StyleSheet.create({
   screenHeaderText: {
     paddingVertical: 16,
     textAlign: "center",
+  },
+  feedbackButton: {
+    padding: 8,
+    flexDirection: "row",
   },
 });
 

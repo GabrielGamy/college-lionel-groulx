@@ -1,26 +1,27 @@
-import React from 'react';
+import React from "react";
 import { Platform } from "react-native";
-import { FontAwesome5 } from '@expo/vector-icons';
+import { FontAwesome5 } from "@expo/vector-icons";
 import { AppBar, HStack } from "@react-native-material/core";
-import i18n from '../data/languages';
+import i18n from "../data/languages";
+import constants from "../constants";
 
 const appBarStyle = {
   ...Platform.select({
-      android: {
-        paddingTop: 30
-      },
-      ios: {
-        paddingTop: 45
-      }
-    })
+    android: {
+      paddingTop: 30,
+    },
+    ios: {
+      paddingTop: 45,
+    },
+  }),
 };
 
 class Header extends React.Component {
   render() {
     return (
       <AppBar
-        title={i18n.t('app_title')}
-        color="#D80621"
+        title={i18n.t("app_title")}
+        color={constants.primaryColor}
         style={appBarStyle}
         trailing={(props) => (
           <HStack>
