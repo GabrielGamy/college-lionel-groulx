@@ -23,6 +23,9 @@ const fr = {
   cancel: "Annuler",
   send: "Envoyer",
   thankyoufeedback: "Merci pour votre message!",
+  visitWebsite: "Visitez le site web",
+  cities: "Villes",
+  attractions: "Attractions",
 };
 
 const en = {
@@ -47,6 +50,9 @@ const en = {
   cancel: "Cancel",
   send: "Send",
   thankyoufeedback: "Thank you for your feedback!",
+  visitWebsite: "Website",
+  cities: "Cities",
+  attractions: "Attractions",
 };
 
 const i18n = new I18n({ en, fr });
