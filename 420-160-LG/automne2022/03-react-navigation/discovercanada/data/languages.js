@@ -50,7 +50,7 @@ const en = {
   cancel: "Cancel",
   send: "Send",
   thankyoufeedback: "Thank you for your feedback!",
-  visitWebsite: "Website",
+  visitWebsite: "Visit the website",
   cities: "Cities",
   attractions: "Attractions",
 };

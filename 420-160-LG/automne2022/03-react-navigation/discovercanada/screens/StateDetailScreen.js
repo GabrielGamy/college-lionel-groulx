@@ -54,7 +54,7 @@ const StateDetailScreen = ({ route, navigation }) => {
             <Button
               key="website"
               variant="text"
-              title={`${state.name} ${i18n.t("visitWebsite")}`}
+              title={`${i18n.t("visitWebsite")}`}
               color={constants.primaryColor}
               compact
               onPress={() => openWebsite(state.website)}

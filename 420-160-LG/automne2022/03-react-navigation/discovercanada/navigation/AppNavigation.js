@@ -6,6 +6,7 @@ import StateScreen from "../screens/StateScreen";
 import StateDetailScreen from "../screens/StateDetailScreen";
 import CityScreen from "../screens/CityScreen";
 import constants from "../constants";
+import i18n from "../data/languages";
 
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
@@ -21,7 +22,11 @@ const screenOptions = {
 function Home() {
   return (
     <Drawer.Navigator screenOptions={screenOptions}>
-      <Drawer.Screen name="States" component={StateScreen} />
+      <Drawer.Screen
+        name="States"
+        component={StateScreen}
+        options={{ title: i18n.t("states") }}
+      />
     </Drawer.Navigator>
   );
 }

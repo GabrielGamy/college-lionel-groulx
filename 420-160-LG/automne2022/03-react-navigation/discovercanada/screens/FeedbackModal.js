@@ -37,7 +37,7 @@ const FeedbackModal = () => {
       }
       return;
     }
-    throw new Error("Invalid Email/Message");
+    Alert.alert("Feedback", "Invalid Email/Message");
   };
 
   return (
@@ -54,7 +54,7 @@ const FeedbackModal = () => {
           <View
             style={{
               flexDirection: "row",
-              marginHorizontal: 16,
+              marginHorizontal: 12,
             }}
           >
             <Button
@@ -87,8 +87,9 @@ const FeedbackModal = () => {
           <View
             style={{
               flexDirection: "row",
-              width: 200,
-              justifyContent: "space-around",
+              width: 240,
+              justifyContent: "space-between",
+              marginHorizontal: 4,
             }}
           >
             <Button
@@ -96,12 +97,13 @@ const FeedbackModal = () => {
               variant="outlined"
               title={i18n.t("cancel")}
               onPress={closeFeedbackModal}
-              style={{ marginHorizontal: 8 }}
+              style={{ marginHorizontal: 4, flex: 1 }}
             />
             <Button
               color={constants.primaryColor}
               title={i18n.t("send")}
               onPress={sendFeedback}
+              style={{ marginHorizontal: 4, flex: 1 }}
             />
           </View>
         </View>

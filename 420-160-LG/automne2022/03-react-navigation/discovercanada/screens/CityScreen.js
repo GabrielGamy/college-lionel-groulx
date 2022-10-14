@@ -53,7 +53,7 @@ const CityScreen = ({ route, navigation }) => {
             <Button
               key="website"
               variant="text"
-              title={`${city.name} ${i18n.t("visitWebsite")}`}
+              title={`${i18n.t("visitWebsite")}`}
               color={constants.primaryColor}
               compact
               onPress={() => openWebsite(city.website)}
