@@ -17,8 +17,8 @@ export default function ProfileImagePicker() {
 
     console.log(result);
 
-    if (!result.canceled) {
-      setProfileImage(result.assets[0].uri);
+    if (!result.cancelled) {
+      setProfileImage(result.uri);
     } else {
       setProfileImage(null);
     }
