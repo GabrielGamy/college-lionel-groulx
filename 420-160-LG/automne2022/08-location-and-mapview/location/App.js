@@ -1,20 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { Platform, Text, View, StyleSheet } from "react-native";
-import * as Device from "expo-device";
+import { Text, View, StyleSheet } from "react-native";
 import * as Location from "expo-location";
 
 export default function App() {
   const [location, setLocation] = useState(null);
+  const [address, setAddress] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
 
   useEffect(() => {
     (async () => {
-      if (Platform.OS === "android" && !Device.isDevice) {
-        setErrorMsg(
-          "Oops, this will not work on Snack in an Android emulator. Try it on your device!"
-        );
-        return;
-      }
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== "granted") {
         setErrorMsg("Permission to access location was denied");
@@ -22,6 +16,9 @@ export default function App() {
       }
 
       let location = await Location.getCurrentPositionAsync({});
+      let address = await Location.reverseGeocodeAsync(location.coords);
+
+      setAddress(address);
       setLocation(location);
     })();
   }, []);
@@ -30,7 +27,7 @@ export default function App() {
   if (errorMsg) {
     text = errorMsg;
   } else if (location) {
-    text = JSON.stringify(location, null, 2);
+    text = JSON.stringify({ ...location, ...address }, null, 2);
   }
 
   return (

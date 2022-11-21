@@ -11,7 +11,6 @@
     "expo-status-bar": "~1.4.0",
     "react": "18.0.0",
     "react-native": "0.69.6",
-    "expo-device": "~4.3.0",
     "expo-location": "~14.3.0",
     "expo-constants": "~13.2.4"
   },

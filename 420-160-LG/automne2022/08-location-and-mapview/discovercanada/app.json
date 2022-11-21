@@ -1,0 +1,40 @@
+{
+  "expo": {
+    "name": "Discover Canada",
+    "slug": "discover-canada",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "versionCode": 1,
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#FFFFFF"
+      },
+      "package": "com.gabrielgamy.discovercanada",
+      "permissions": ["ACCESS_FINE_LOCATION", "ACCESS_COARSE_LOCATION"]
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "description": "Cette application permet à un touriste de découvrir les villes, les centres d’attractions, les parcs, les endroits populaires dans les villes populaires d’un pays.",
+    "extra": {
+      "eas": {
+        "projectId": "38b29b29-157e-49f6-a9b1-619772d97f25"
+      }
+    }
+  }
+}
