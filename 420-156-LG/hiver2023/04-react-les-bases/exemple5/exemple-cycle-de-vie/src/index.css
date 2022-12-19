@@ -1,0 +1,37 @@
+* {
+  box-sizing: border-box;
+}
+body {
+  font-family: Verdana, sans-serif;
+}
+
+header {
+  color: white;
+  background-color: teal;
+  text-align: center;
+  padding: 8px;
+  margin: 0;
+}
+
+.clock-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#clock {
+  text-align: center;
+  margin: 16px;
+  font-size: 64px;
+}
+
+.toggle-btn {
+  background-color: orange; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  font-size: 16px;
+  width: 200px;
+  align-self: center;
+}
