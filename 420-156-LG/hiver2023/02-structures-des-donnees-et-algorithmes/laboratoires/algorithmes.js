@@ -157,12 +157,12 @@ console.log("====== FIN TEST #4 - sontListesIdentiques ======");
  * @returns
  */
 function sontListesIdentiquesV2(liste1, liste2) {
-  liste1.sort();
-  liste2.sort();
+  liste1.sort((a, b) => a - b);
+  liste2.sort((a, b) => a - b);
   return sontListesIdentiques(liste1, liste2);
 }
 
-console.log("\n====== TEST #4 - sontListesIdentiquesV2 ======");
+console.log("\n====== TEST #5 - sontListesIdentiquesV2 ======");
 console.log(
   `INPUT: liste1 = [1, 2] liste2 = [1, 2], EXPECTED: true , OUTPUT: ${sontListesIdentiquesV2(
     [1, 2],
@@ -190,7 +190,7 @@ console.log(
     [1, 2, 3]
   )}`
 );
-console.log("====== FIN TEST #4 - sontListesIdentiquesV2 ======");
+console.log("====== FIN TEST #5 - sontListesIdentiquesV2 ======");
 
 /**
  * Écrire une fonction qui retourne la valeur VRAI ou FAUX si un mot est un palindrome ou pas.
@@ -203,13 +203,13 @@ function estPalindrome(mot) {
   return mot === mot.split("").reverse().join("");
 }
 
-console.log("\n====== TEST #5 - estPalindrome ======");
+console.log("\n====== TEST #6 - estPalindrome ======");
 console.log(`INPUT: Radar, EXPECTED: true, OUTPUT: ${estPalindrome("Radar")}`);
 console.log(`INPUT: Été, EXPECTED: true, OUTPUT: ${estPalindrome("Été")}`);
 console.log(`INPUT: Ici, EXPECTED: true, OUTPUT: ${estPalindrome("Ici")}`);
 console.log(`INPUT: Oui, EXPECTED: false, OUTPUT: ${estPalindrome("Oui")}`);
 console.log(`INPUT: Toto, EXPECTED: false, OUTPUT: ${estPalindrome("Toto")}`);
-console.log("====== FIN TEST #5 - estPalindrome ======\n");
+console.log("====== FIN TEST #6 - estPalindrome ======\n");
 
 /**
  * Trouver l’élément le plus fréquemment dans un tableau d’entiers.
@@ -223,7 +223,7 @@ function trouverFrequent(liste) {
 
   for (let i = 0; i < liste.length; i++) {
     let element = liste[i];
-    nbOccur[element] = nbOccur[element] ? nbOccur[element] + 1 : 1;
+    nbOccur[element] = nbOccur[element] ? nbOccur[element]++ : 1;
 
     if (nbOccur[element] > compteur) {
       frequent = element;
@@ -234,7 +234,7 @@ function trouverFrequent(liste) {
   return frequent;
 }
 
-console.log("\n====== TEST #6 - trouverFrequent ======");
+console.log("\n====== TEST #7 - trouverFrequent ======");
 console.log(`INPUT: [], EXPECTED: null, OUTPUT: ${trouverFrequent([])}`);
 console.log(
   `INPUT: [1, 2, 3, 1, 5, 1], EXPECTED: 1, OUTPUT: ${trouverFrequent([
@@ -248,4 +248,4 @@ console.log(
 );
 console.log(`INPUT: [0], EXPECTED: 0, OUTPUT: ${trouverFrequent([0])}`);
 console.log(`INPUT: [1, 2], EXPECTED: 1, OUTPUT: ${trouverFrequent([1, 2])}`);
-console.log("====== FIN TEST #5 - trouverFrequent ======\n");
+console.log("====== FIN TEST #7 - trouverFrequent ======\n");
