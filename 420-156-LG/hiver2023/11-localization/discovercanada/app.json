@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "e22-seance11-discovercanada",
-    "slug": "snack-c0885759-9da6-4d2b-89b5-5f75d10c8bee",
+    "name": "h23-decouvrirlecanada-seance11-localization",
+    "slug": "snack-91c0b1e3-bc54-4ce7-a9f2-c6e6467411e4",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -29,6 +29,6 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "description": "Cette application permet à un touriste de découvrir les villes, les centres d’attractions, les parcs, les endroits populaires dans les villes populaires d’un pays."
+    "description": "Programmation d'applications mobiles 1 -  Localization - Découvrir le Canada"
   }
 }

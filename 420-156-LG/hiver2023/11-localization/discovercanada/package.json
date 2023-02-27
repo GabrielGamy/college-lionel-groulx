@@ -7,13 +7,15 @@
     "web": "expo start --web"
   },
   "dependencies": {
-    "expo": "~46.0.9",
-    "expo-status-bar": "~1.4.0",
-    "react": "18.0.0",
-    "react-native": "0.69.5",
+    "expo": "~47.0.12",
+    "expo-status-bar": "~1.4.2",
+    "react": "18.1.0",
+    "react-native": "0.70.5",
+    "expo-constants": "~14.0.2",
     "@expo/vector-icons": "^13.0.0",
+    "react-native-paper": "4.9.2",
     "@react-native-material/core": "*",
-    "expo-localization": "~13.1.0",
+    "expo-localization": "~14.0.0",
     "i18n-js": "*"
   },
   "devDependencies": {
