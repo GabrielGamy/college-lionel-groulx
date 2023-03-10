@@ -19,7 +19,7 @@ const StateDetailScreen = ({ route, navigation }) => {
     navigation.setOptions({ title: state.name });
   }, []);
 
-  const renderStateItem = (item) => {
+  const renderCityItem = (item) => {
     return (
       <DiscoverCard
         key={item.name}
@@ -68,7 +68,7 @@ const StateDetailScreen = ({ route, navigation }) => {
             {i18n.t("cities")}
           </Text>
           {state.cities.map((item) => {
-            return renderStateItem(item);
+            return renderCityItem(item);
           })}
         </View>
       )}

@@ -19,7 +19,7 @@ export default class DiscoverCard extends React.Component {
   };
 
   render() {
-    const item = this.props.item;
+    const { item, useViewMapText } = this.props;
     const name = i18n.t(item.name).includes("missing")
       ? item.name
       : i18n.t(item.name);
@@ -36,7 +36,7 @@ export default class DiscoverCard extends React.Component {
                 <Button
                   key="learn-more"
                   variant="text"
-                  title={i18n.t("learn_more")}
+                  title={i18n.t(useViewMapText ? "viewMap" : "learn_more")}
                   color={constants.primaryColor}
                   compact
                   onPress={() => this.navigateTo()}
@@ -59,6 +59,7 @@ const styles = StyleSheet.create({
   wrapper: {
     marginHorizontal: 16,
     marginVertical: 8,
+    minWidth: 250,
   },
   item: {
     paddingHorizontal: 2,

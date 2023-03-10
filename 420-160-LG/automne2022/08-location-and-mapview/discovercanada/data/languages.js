@@ -26,13 +26,14 @@ const fr = {
   visitWebsite: "Visitez le site web",
   cities: "Villes",
   attractions: "Attractions",
-  locationRequired: "Location permissions are required!",
-  deviceRequired: "Device required!",
+  locationRequired: "Les permissions de localisation sont requises!",
+  deviceRequired: "Appareil physique requis!",
+  viewMap: "Voir la carte",
 };
 
 const en = {
   app_title: "Discover Canada",
-  states: "States",
+  states: "Provinces",
   Alberta: "Alberta",
   "Colombie-Britannique": "British Columbia",
   "Île-du-Prince-Édouard": "Prince Edouard Island",
@@ -55,14 +56,15 @@ const en = {
   visitWebsite: "Visit the website",
   cities: "Cities",
   attractions: "Attractions",
-  locationRequired: "Les permissions de localisation sont requises!",
-  deviceRequired: "Appareil physique requis!",
+  locationRequired: "Location permissions are required!",
+  deviceRequired: "Device required!",
+  viewMap: "View Map",
 };
 
-const i18n = new I18n({ en, fr });
+const i18n = new I18n({ fr, en });
 
 i18n.enableFallback = true;
-i18n.defaultLocale = "fr";
+i18n.defaultLocale = "en";
 i18n.locale = Localization.locale;
 
 export default i18n;

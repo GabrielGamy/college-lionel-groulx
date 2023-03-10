@@ -25,7 +25,8 @@
     "react-native-safe-area-context": "4.3.1",
     "react-native-maps": "0.31.1",
     "expo-location": "~14.3.0",
-    "expo-device": "~4.3.0"
+    "expo-device": "~4.3.0",
+    "expo-updates": "~0.14.7"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9"

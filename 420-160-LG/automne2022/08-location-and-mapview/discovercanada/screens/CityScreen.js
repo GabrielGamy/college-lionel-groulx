@@ -27,6 +27,7 @@ const CityScreen = ({ route, navigation }) => {
         key={item.name}
         item={item}
         description={item.description[lang]}
+        useViewMapText={true}
         navigateTo={() =>
           navigation.navigate("Map", {
             name: item.name,
