@@ -1,0 +1,28 @@
+{
+  "todos_users": [
+    {
+      "id": "",
+      "username": "",
+      "created": "",
+      "updated": ""
+    }
+  ],
+  "todos_list": [
+    {
+      "id": "",
+      "user_id": "",
+      "value": "",
+      "created": "",
+      "isCompleted": "",
+      "updated": ""
+    },
+    {
+      "id": "",
+      "user_id": "",
+      "value": "",
+      "created": "",
+      "isCompleted": "",
+      "updated": ""
+    }
+  ]
+}

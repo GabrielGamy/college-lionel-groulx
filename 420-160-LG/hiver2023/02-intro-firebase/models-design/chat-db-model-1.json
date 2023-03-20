@@ -1,0 +1,60 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "email": "",
+      "passwordHash": "",
+      "username": "",
+      "firstname": "",
+      "lastname": "",
+      "created": "",
+      "conversations": [
+        {
+          "withUser": "2",
+          "messages": [
+            {
+              "from": "1",
+              "to": "2",
+              "message": "",
+              "date": ""
+            },
+            {
+              "from": "2",
+              "to": "1",
+              "message": "",
+              "date": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "email": "",
+      "passwordHash": "",
+      "username": "",
+      "firstname": "",
+      "lastname": "",
+      "created": "",
+      "conversations": [
+        {
+          "withUser": "1",
+          "messages": [
+            {
+              "from": "2",
+              "to": "1",
+              "message": "",
+              "date": ""
+            },
+            {
+              "from": "1",
+              "to": "2",
+              "message": "",
+              "date": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

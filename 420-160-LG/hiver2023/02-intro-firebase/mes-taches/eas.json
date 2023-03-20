@@ -1,0 +1,30 @@
+{
+  "cli": {
+    "version": ">= 3.7.2"
+  },
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal",
+      "ios": {
+        "resourceClass": "m1-medium"
+      }
+    },
+    "preview": {
+      "distribution": "internal",
+      "ios": {
+        "resourceClass": "m1-medium"
+      }
+    },
+    "production": {
+      "ios": {
+        "resourceClass": "m1-medium"
+      }
+    }
+  },
+  "submit": {
+    "production": {
+      "ServiceAccountKeyPath": "./build/api-6556696374184706674-65295-acc6068324b6.json"
+    }
+  }
+}

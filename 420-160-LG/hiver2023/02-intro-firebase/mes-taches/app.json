@@ -1,0 +1,44 @@
+{
+  "expo": {
+    "name": "mes-taches",
+    "slug": "mes-taches",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#3D9970"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "buildNumber": "1",
+      "supportsTablet": true
+    },
+    "androidStatusBar": {
+      "backgroundColor": "#3D9970",
+      "translucent": false
+    },
+    "android": {
+      "versionCode": 1,
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#3D9970"
+      },
+      "package": "com.gabrielgamy.mestaches"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "description": "Programmation applications mobiles 1 * Collège Lionel-Groulx * Création du application de gestion des taches * Mes tâches",
+    "extra": {
+      "eas": {
+        "projectId": "045f82ec-b594-4152-b01e-6c0eff375bfb"
+      }
+    }
+  }
+}
