@@ -35,7 +35,7 @@ const getOrCreateUser = async (id) => {
   try {
     if (id) {
       // get
-      const docRef = doc(db, "todo_users", id);
+      const docRef = doc(db, "contact_users", id);
       const docSnap = await getDoc(docRef);
 
       if (docSnap.exists()) {
@@ -49,11 +49,11 @@ const getOrCreateUser = async (id) => {
         username: "N/A",
         created: new Date().toISOString(),
         updated: null,
-        todos: [],
+        contacts: [],
       };
 
-      const docRef = await addDoc(collection(db, "todo_users"), user);
-      await storeData("@user_id", docRef.id);
+      const docRef = await addDoc(collection(db, "contact_users"), user);
+      await storeData("contact_user_id", docRef.id);
     }
 
     return user;
@@ -67,7 +67,7 @@ const updateUser = async (user) => {
   try {
     // set
     user.updated = new Date().toISOString();
-    await setDoc(doc(db, "todo_users", user.id), user);
+    await setDoc(doc(db, "contact_users", user.id), user);
   } catch (error) {
     console.error("Error setting document: ", e);
   }

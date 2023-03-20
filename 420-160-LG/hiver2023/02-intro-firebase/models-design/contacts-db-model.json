@@ -1,0 +1,23 @@
+{
+  "contact_users": [
+    {
+      "id": "",
+      "created": "",
+      "updated": "",
+      "contacts": [
+        {
+          "id": "",
+          "fullname": "",
+          "phonenumber": "",
+          "created": ""
+        },
+        {
+          "id": "",
+          "fullname": "",
+          "phonenumber": "",
+          "created": ""
+        }
+      ]
+    }
+  ]
+}
