@@ -3,40 +3,46 @@ import { Text, View, StyleSheet, FlatList } from "react-native";
 import { Stack, TextInput, IconButton } from "@react-native-material/core";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import Constants from "../Constants";
+import { getMessages, sendMessage } from "../services/messageService";
 
 export default function Discussions({ navigation, route }) {
-  const { withUser } = route.params;
-  const [userData, setUserData] = useState({
-    localId: "1",
-    email: "john.doe@gmail.com",
-  });
+  const { userData, recipientData } = route.params;
   const [chatMessage, setChatMessage] = useState();
-  const [messages, setMessages] = useState([
-    {
-      content: "Hello",
-      from: {
-        id: "1",
-        displayName: "User",
-      },
-    },
-    {
-      content: "Bonjour",
-      from: {
-        id: "ExNr00GVAEcfu2oBpouqbsRoIvt2",
-        displayName: "Support",
-      },
-    },
-  ]);
+  const [messages, setMessages] = useState([]);
 
-  const sendChatMessage = () => {
-    console.log("message");
+  useEffect(() => {
+    const fetchMessages = async () => {
+      const user_messages = await getMessages(userData.id, recipientData.id);
+      setMessages(user_messages);
+    };
+
+    fetchMessages();
+  }, []);
+
+  const sendChatMessage = async () => {
+    const messageData = {
+      content: chatMessage,
+      from: userData,
+      to: recipientData,
+    };
+
+    const user_messages = await sendMessage(
+      userData,
+      recipientData,
+      messageData
+    );
+
+    // Send recipient's message
+    await sendMessage(recipientData, userData, messageData);
+
+    setMessages(user_messages);
   };
 
   const renderMessageItem = ({ item }) => {
     if (!userData) return;
 
     const msgBoxStyle =
-      item["from"].id === userData.localId
+      item["from"].id === userData.id
         ? styles.messageRight
         : styles.messageLeft;
 

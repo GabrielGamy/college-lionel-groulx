@@ -2,18 +2,20 @@ import React, { useState, useEffect } from "react";
 import { Text, View, StyleSheet } from "react-native";
 import { Stack, ListItem, Avatar, Button } from "@react-native-material/core";
 import Constants from "../Constants";
+import { getAdminData } from "../services/userService";
 
-const adminData = {
-  id: "ExNr00GVAEcfu2oBpouqbsRoIvt2",
-  email: "support@contoso.ca",
-  displayName: "Support",
-};
-
-export default function Home({ navigation }) {
-  const [userData, setUserData] = useState({
-    email: "john.doe@gmail.com",
-  });
+export default function Home({ navigation, route }) {
+  const [adminData, setAdminData] = useState({});
+  const [userData, setUserData] = useState(route.params.user);
   const [lastMessages, setLastMessages] = useState([]);
+
+  useEffect(() => {
+    const fetchAdminInfo = async () => {
+      const adminInfo = await getAdminData();
+      setAdminData(adminInfo);
+    };
+    fetchAdminInfo();
+  }, []);
 
   return (
     <Stack spacing={4} style={{ flex: 1 }}>
@@ -23,7 +25,7 @@ export default function Home({ navigation }) {
             <ListItem
               onPress={() => {
                 navigation.navigate("Discussions", {
-                  withUser: fromUser(message),
+                  recipientData: fromUser(message),
                 });
               }}
               leadingMode="avatar"
@@ -49,7 +51,8 @@ export default function Home({ navigation }) {
               tintColor={"white"}
               onPress={() => {
                 navigation.navigate("Discussions", {
-                  withUser: adminData,
+                  userData,
+                  recipientData: adminData,
                 });
               }}
             />

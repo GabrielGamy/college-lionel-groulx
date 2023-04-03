@@ -3,6 +3,7 @@ import { Text, View, StyleSheet, Image, TouchableOpacity } from "react-native";
 import { Stack, TextInput, Button } from "@react-native-material/core";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import Constants from "../Constants";
+import { login } from "../services/userService";
 
 export default function Login(props) {
   const navigation = props.navigation;
@@ -10,8 +11,25 @@ export default function Login(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const authenticate = () => {
-    navigation.navigate("Home");
+  const authenticate = async () => {
+    if (checkEmail(email) && checkPassword(password)) {
+      const user = await login(email, password);
+      navigation.navigate("Home", {
+        user,
+      });
+    } else {
+      setErrorMessage("Email ou Mot de passe incorrect!");
+    }
+  };
+
+  const checkEmail = (email) => {
+    var regex = /\S+@\S+\.\S+/;
+    return regex.test(email);
+  };
+
+  const checkPassword = (password) => {
+    var regex = /\S{5}/;
+    return regex.test(password);
   };
 
   return (
