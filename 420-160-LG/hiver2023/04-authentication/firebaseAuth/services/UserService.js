@@ -1,4 +1,32 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 const API_KEY = "AIzaSyCbdUx21bxMRLkn80Fryrx1wuYyD2WfebU";
+
+const saveLocalUser = async (user) => {
+  user.loginDate = new Date();
+  await AsyncStorage.setItem("@user", JSON.stringify(user));
+};
+
+const isConnected = async () => {
+  const userString = await AsyncStorage.getItem("@user");
+
+  if (userString) {
+    const user = JSON.parse(userString);
+
+    const result = new Date(user.loginDate);
+
+    result.setSeconds(result.getSeconds() + parseInt(user.expiresIn));
+
+    // if (result <= new Date()) {
+    //   // refreshtoken
+    //   // connecter encore et obtenir le idtoken
+    // }
+
+    return result > new Date();
+  }
+
+  return false;
+};
 
 const signup = async (email, password) => {
   const endpoint = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${API_KEY}`;
@@ -25,11 +53,34 @@ const signup = async (email, password) => {
   return { data };
 };
 
-const signin = (email, password) => {};
+const signin = async (email, password) => {
+  const endpoint = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${API_KEY}`;
+
+  const response = await fetch(endpoint, {
+    method: "POST",
+    body: JSON.stringify({
+      email,
+      password,
+      returnSecureToken: true,
+    }),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  const data = await response.json();
+
+  if (data.error) {
+    const errorMessage = getCommonError(data.error.message);
+    return { errorMessage };
+  }
+
+  await saveLocalUser(data);
+
+  return { data };
+};
 
 const sendForgotPassword = () => {};
-
-const isConnected = () => {};
 
 const logout = () => {};
 

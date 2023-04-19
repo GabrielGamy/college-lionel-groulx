@@ -1,12 +1,38 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import FormInput from "../components/FormInput";
 import Constants from "../constants";
+import { isConnected, signin } from "../services/UserService";
 
 const LoginScreen = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+
+  useEffect(function () {
+    const checkIsAuthenticated = async function () {
+      const isUserConnected = await isConnected();
+      if (isUserConnected) {
+        props.navigation.navigate("Home");
+        return;
+      }
+    };
+
+    checkIsAuthenticated();
+  }, []);
+
+  const loginUser = async () => {
+    const response = await signin(email, password);
+
+    if (response.errorMessage) {
+      setErrorMessage(response.errorMessage);
+      return;
+    }
+
+    console.log("response", JSON.stringify(response, null, 2));
+
+    props.navigation.navigate("Home");
+  };
 
   return (
     <View style={styles.container}>
