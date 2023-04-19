@@ -29,8 +29,6 @@ const LoginScreen = (props) => {
       return;
     }
 
-    console.log("response", JSON.stringify(response, null, 2));
-
     props.navigation.navigate("Home");
   };
 
