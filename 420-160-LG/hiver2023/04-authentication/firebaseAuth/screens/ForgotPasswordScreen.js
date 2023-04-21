@@ -2,14 +2,14 @@ import React, { useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import FormInput from "../components/FormInput";
 import Constants from "../constants";
-import { sendForgotPassword } from "../services/UserService";
+import { sendEmail } from "../services/UserService";
 
 const ForgotPasswordScreen = (props) => {
   const [email, setEmail] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
   const sendForgotPasswordEmail = async () => {
-    const response = await sendForgotPassword(email);
+    const response = await sendEmail(email, "PASSWORD_RESET");
 
     if (response.errorMessage) {
       setErrorMessage(response.errorMessage);
