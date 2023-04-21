@@ -82,14 +82,39 @@ const signin = async (email, password) => {
   return { data };
 };
 
-const sendEmail = async (email, requestType) => {
+const sendForgotPassword = async (email) => {
   const endpoint = `https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=${API_KEY}`;
 
   const response = await fetch(endpoint, {
     method: "POST",
     body: JSON.stringify({
-      requestType,
+      requestType: "PASSWORD_RESET",
       email,
+    }),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  const data = await response.json();
+
+  if (data.error) {
+    const errorMessage = getCommonError(data.error.message);
+    return { errorMessage };
+  }
+
+  return { data };
+};
+
+const sendVerifyEmail = async (email, idToken) => {
+  const endpoint = `https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=${API_KEY}`;
+
+  const response = await fetch(endpoint, {
+    method: "POST",
+    body: JSON.stringify({
+      requestType: "VERIFY_EMAIL",
+      email,
+      idToken,
     }),
     headers: {
       "Content-Type": "application/json",
@@ -159,7 +184,8 @@ const getCommonError = (code) => {
 export {
   signup,
   signin,
-  sendEmail,
+  sendForgotPassword,
+  sendVerifyEmail,
   isConnected,
   logout,
   getCommonError,

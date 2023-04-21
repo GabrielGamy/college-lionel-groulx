@@ -37,7 +37,9 @@ const LoginScreen = (props) => {
     if (userData?.data?.users[0]?.emailVerified) {
       props.navigation.navigate("Home");
     } else {
-      props.navigation.navigate("VerifyEmail");
+      props.navigation.navigate("VerifyEmail", {
+        token,
+      });
     }
   };
 

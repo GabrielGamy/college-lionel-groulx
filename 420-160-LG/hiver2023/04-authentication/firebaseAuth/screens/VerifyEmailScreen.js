@@ -2,14 +2,15 @@ import React, { useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import FormInput from "../components/FormInput";
 import Constants from "../constants";
-import { sendEmail } from "../services/UserService";
+import { sendVerifyEmail } from "../services/UserService";
 
 const VerifyEmailScreen = (props) => {
   const [email, setEmail] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const { token } = props.route.params;
 
   const sendVerificationEmail = async () => {
-    const response = await sendEmail(email, "VERIFY_EMAIL");
+    const response = await sendVerifyEmail(email, token);
 
     if (response.errorMessage) {
       setErrorMessage(response.errorMessage);
