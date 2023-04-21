@@ -5,6 +5,7 @@ import LoginScreen from "../screens/LoginScreen";
 import RegisterScreen from "../screens/RegisterScreen";
 import ForgotPasswordScreen from "../screens/ForgotPasswordScreen";
 import HomeScreen from "../screens/HomeScreen";
+import VerifyEmailScreen from "../screens/VerifyEmailScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -25,6 +26,11 @@ const AppNavigation = () => (
         name="ForgotPassword"
         options={{ title: "Réinitialiser le mot de passe" }}
         component={ForgotPasswordScreen}
+      />
+      <Stack.Screen
+        name="VerifyEmail"
+        options={{ title: "Vérifier votre email" }}
+        component={VerifyEmailScreen}
       />
       <Stack.Screen
         name="Home"

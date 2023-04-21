@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import FormInput from "../components/FormInput";
 import Constants from "../constants";
-import { isConnected, signin } from "../services/UserService";
+import { getUserData, isConnected, signin } from "../services/UserService";
 
 const LoginScreen = (props) => {
   const [email, setEmail] = useState("");
@@ -11,9 +11,9 @@ const LoginScreen = (props) => {
 
   useEffect(function () {
     const checkIsAuthenticated = async function () {
-      const isUserConnected = await isConnected();
-      if (isUserConnected) {
-        props.navigation.navigate("Home");
+      const userConnectedInfo = await isConnected();
+      if (userConnectedInfo) {
+        navigate(userConnectedInfo.token);
         return;
       }
     };
@@ -29,7 +29,16 @@ const LoginScreen = (props) => {
       return;
     }
 
-    props.navigation.navigate("Home");
+    navigate(response?.data?.idToken);
+  };
+
+  const navigate = async (token) => {
+    const userData = await getUserData(token);
+    if (userData?.data?.users[0]?.emailVerified) {
+      props.navigation.navigate("Home");
+    } else {
+      props.navigation.navigate("VerifyEmail");
+    }
   };
 
   return (

@@ -18,11 +18,13 @@ const isConnected = async () => {
     result.setSeconds(result.getSeconds() + parseInt(user.expiresIn));
 
     // if (result <= new Date()) {
-    //   // refreshtoken
-    //   // connecter encore et obtenir le idtoken
+    //   // utiliser le refreshtoken et obtenir le idtoken
     // }
 
-    return result > new Date();
+    return {
+      isConnected: result > new Date(),
+      token: user.idToken,
+    };
   }
 
   return false;
@@ -104,6 +106,51 @@ const sendForgotPassword = async (email) => {
   return { data };
 };
 
+const sendVerifyEmail = async (email) => {
+  const endpoint = `https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=${API_KEY}`;
+
+  const response = await fetch(endpoint, {
+    method: "POST",
+    body: JSON.stringify({
+      requestType: "VERIFY_EMAIL",
+      email,
+    }),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  const data = await response.json();
+
+  if (data.error) {
+    const errorMessage = getCommonError(data.error.message);
+    return { errorMessage };
+  }
+
+  return { data };
+};
+
+const getUserData = async (idToken) => {
+  const endpoint = `https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=${API_KEY}`;
+
+  const response = await fetch(endpoint, {
+    method: "POST",
+    body: JSON.stringify({ idToken }),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  const data = await response.json();
+
+  if (data.error) {
+    const errorMessage = getCommonError(data.error.message);
+    return { errorMessage };
+  }
+
+  return { data };
+};
+
 const logout = async () => {
   await AsyncStorage.clear();
 };
@@ -137,7 +184,9 @@ export {
   signup,
   signin,
   sendForgotPassword,
+  sendVerifyEmail,
   isConnected,
   logout,
   getCommonError,
+  getUserData,
 };

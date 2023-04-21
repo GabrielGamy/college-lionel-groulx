@@ -2,14 +2,14 @@ import React, { useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import FormInput from "../components/FormInput";
 import Constants from "../constants";
-import { sendForgotPassword } from "../services/UserService";
+import { sendVerifyEmail } from "../services/UserService";
 
-const ForgotPasswordScreen = (props) => {
+const VerifyEmailScreen = (props) => {
   const [email, setEmail] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
-  const sendForgotPasswordEmail = async () => {
-    const response = await sendForgotPassword(email);
+  const sendVerificationEmail = async () => {
+    const response = await sendVerifyEmail(email);
 
     if (response.errorMessage) {
       setErrorMessage(response.errorMessage);
@@ -21,16 +21,18 @@ const ForgotPasswordScreen = (props) => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.forgotForm}>
+      <View style={styles.verifyForm}>
         <Text style={{ textAlign: "center" }}>
-          {"Saisisez vos informations"}
+          {
+            "Saisisez votre adresse courriel. Vous recevrez un mail de confirmation."
+          }
         </Text>
 
         {errorMessage.length > 0 && (
           <Text style={styles.errorMessage}>{errorMessage}</Text>
         )}
 
-        <View style={styles.forgotFormView}>
+        <View style={styles.verifyFormView}>
           <FormInput
             label="Email:"
             type={"email"}
@@ -38,12 +40,12 @@ const ForgotPasswordScreen = (props) => {
             onChangeText={(text) => setEmail(text)}
           />
 
-          <View style={styles.forgotBtnContainer}>
+          <View style={styles.verifyBtnContainer}>
             <TouchableOpacity
-              style={styles.forgotBtn}
-              onPress={() => sendForgotPasswordEmail()}
+              style={styles.verifyBtn}
+              onPress={() => sendVerificationEmail()}
             >
-              <Text style={styles.forgotBtnText}>{"Soumettre"}</Text>
+              <Text style={styles.verifyBtnText}>{"Soumettre"}</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -56,10 +58,10 @@ const styles = StyleSheet.create({
   container: {
     margin: 8,
   },
-  forgotForm: {
+  verifyForm: {
     justifyContent: "center",
   },
-  forgotFormView: {
+  verifyFormView: {
     backgroundColor: "white",
     marginVertical: 16,
     marginHorizontal: 8,
@@ -68,19 +70,19 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     borderRadius: 10,
   },
-  forgotBtnContainer: {
+  verifyBtnContainer: {
     justifyContent: "center",
     alignItems: "center",
     margin: 8,
   },
-  forgotBtn: {
+  verifyBtn: {
     backgroundColor: Constants.primary,
     padding: 10,
     borderRadius: 6,
     maxWidth: 140,
     justifyContent: "center",
   },
-  forgotBtnText: {
+  verifyBtnText: {
     color: Constants.textColor,
     textAlign: "center",
     fontSize: 16,
@@ -93,4 +95,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ForgotPasswordScreen;
+export default VerifyEmailScreen;
