@@ -46,9 +46,9 @@ export default function Discussions({ navigation, route }) {
     if (!userData) return;
 
     const msgBoxStyle =
-      item["from"].id === userData.id
-        ? styles.messageRight
-        : styles.messageLeft;
+      item["from"].localId === userData.localId
+        ? styles.messageLeft
+        : styles.messageRight;
 
     return (
       <View style={msgBoxStyle}>
