@@ -2,25 +2,36 @@ import React, { useState, useEffect } from "react";
 import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
 import { Stack, ListItem, Avatar, Button } from "@react-native-material/core";
 import Constants from "../Constants";
-import { getAdminData } from "../data/userData";
 import { logout } from "../services/userService";
+import { getAdminData } from "../data/userData";
+import { getLastMessages } from "../services/messageService";
 
 export default function Home({ navigation, route }) {
-  const [adminData, setAdminData] = useState({});
   const [userData, setUserData] = useState(route.params.user);
   const [lastMessages, setLastMessages] = useState([]);
 
   useEffect(() => {
-    // const fetchAdminInfo = async () => {
-    //   const adminInfo = await getAdminData();
-    //   setAdminData(adminInfo);
-    // };
-    // fetchAdminInfo();
+    const fetchLastMessages = async () => {
+      if (userData) {
+        const messages = await getLastMessages(userData.localId);
+        setLastMessages(messages);
+      }
+    };
+    fetchLastMessages();
   }, []);
 
   const signOutUser = async () => {
     await logout();
     navigation.navigate("Login");
+  };
+
+  const goToDiscussions = async () => {
+    const adminData = await getAdminData();
+
+    navigation.navigate("Discussions", {
+      userData,
+      recipientData: adminData,
+    });
   };
 
   return (
@@ -31,12 +42,14 @@ export default function Home({ navigation, route }) {
         </TouchableOpacity>
       </View>
       <View>
-        {lastMessages.map((message) => {
+        {lastMessages.map((message, index) => {
           return (
             <ListItem
+              key={index}
               onPress={() => {
                 navigation.navigate("Discussions", {
-                  recipientData: fromUser(message),
+                  userData,
+                  recipientData: message.withUser,
                 });
               }}
               leadingMode="avatar"
@@ -46,29 +59,22 @@ export default function Home({ navigation, route }) {
                   image={require("../assets/avatardefault.png")}
                 />
               }
-              title={fromUser(message).displayName}
+              title={message.withUser.email.split("@")[0]}
               secondaryText={`${message.content.substring(0, 30)}...`}
             />
           );
         })}
       </View>
-      {lastMessages.length === 0 &&
-        userData &&
-        userData.email !== adminData.email && (
-          <View style={{ margin: 32 }}>
-            <Button
-              title="Débuter la discussion"
-              color={Constants.primary}
-              tintColor={"white"}
-              onPress={() => {
-                navigation.navigate("Discussions", {
-                  userData,
-                  recipientData: adminData,
-                });
-              }}
-            />
-          </View>
-        )}
+      {lastMessages.length === 0 && userData && (
+        <View style={{ margin: 32 }}>
+          <Button
+            title="Débuter la discussion"
+            color={Constants.primary}
+            tintColor={"white"}
+            onPress={() => goToDiscussions()}
+          />
+        </View>
+      )}
     </Stack>
   );
 }

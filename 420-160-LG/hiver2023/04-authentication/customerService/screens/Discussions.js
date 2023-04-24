@@ -12,14 +12,18 @@ export default function Discussions({ navigation, route }) {
 
   useEffect(() => {
     const fetchMessages = async () => {
-      const user_messages = await getMessages(userData.id, recipientData.id);
+      const user_messages = await getMessages(
+        userData.localId,
+        recipientData.localId
+      );
       setMessages(user_messages);
     };
-
     fetchMessages();
   }, []);
 
   const sendChatMessage = async () => {
+    if (chatMessage.length == 0) return;
+
     const messageData = {
       content: chatMessage,
       from: userData,

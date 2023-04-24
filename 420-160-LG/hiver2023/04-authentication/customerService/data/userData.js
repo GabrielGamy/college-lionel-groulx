@@ -20,9 +20,7 @@ export const createUserMetadata = async (userMetadata) => {
 
 export const getAdminData = async () => {
   const users = await getUsersMetadata();
-  let admin = users.filter(
-    (u) => u.email == "support-firebase@mailinator.com"
-  )[0];
+  let admin = users.filter((u) => u.role == "admin")[0];
 
   if (!admin) throw new Error("Admin not registered!");
 

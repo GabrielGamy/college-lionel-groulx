@@ -61,7 +61,7 @@ export default function Login(props) {
         <TextInput
           label="Email"
           value={email}
-          onChangeText={(text) => setEmail(text)}
+          onChangeText={(text) => setEmail(text.trim())}
           leading={(props) => (
             <MaterialCommunityIcons name="email" {...props} />
           )}
