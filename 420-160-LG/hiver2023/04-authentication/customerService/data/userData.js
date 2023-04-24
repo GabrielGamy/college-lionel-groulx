@@ -1,20 +1,25 @@
 import { db } from "../config/firebaseConfig";
 import { ref, push, set, child, get } from "firebase/database";
 
-const DB_COLLECTION = "customerService";
+const DB_COLLECTION = "USERS_METADATA";
 
-export const createUserData = async (email) => {
-  const users = await getUsers();
-  let user = users.filter((u) => u.email == email)[0];
+export const createUserMetadata = async (userMetadata) => {
+  const users = await getUsersMetadata();
+
+  if (users.length == 0) {
+    userMetadata.role = "admin";
+  }
+
+  let user = users.filter((u) => u.email == userMetadata.email)[0];
 
   if (user) return user;
 
-  user = await addUserData(email);
+  user = await addUserMetadata(userMetadata);
   return user;
 };
 
 export const getAdminData = async () => {
-  const users = await getUsers();
+  const users = await getUsersMetadata();
   let admin = users.filter(
     (u) => u.email == "support-firebase@mailinator.com"
   )[0];
@@ -24,7 +29,7 @@ export const getAdminData = async () => {
   return admin;
 };
 
-export const getUsers = async () => {
+export const getUsersMetadata = async () => {
   const users = [];
 
   try {
@@ -32,16 +37,13 @@ export const getUsers = async () => {
     const snapshot = await get(child(db_ref, DB_COLLECTION));
 
     if (snapshot.exists()) {
-      const users_data = snapshot.val();
-
-      Object.keys(users_data).forEach((user_key) => {
+      const usersMetadata = snapshot.val();
+      Object.keys(usersMetadata).forEach((user_key) => {
         users.push({
-          id: user_key,
-          ...users_data[user_key],
+          key: user_key,
+          ...usersMetadata[user_key],
         });
       });
-    } else {
-      console.log("No data available");
     }
   } catch (error) {
     console.error("Error getUsers() :", error);
@@ -50,22 +52,12 @@ export const getUsers = async () => {
   return users;
 };
 
-export const addUserData = async (email) => {
+export const addUserMetadata = async (userMetadata) => {
   try {
-    const customerService_ref = ref(db, DB_COLLECTION);
-
-    const new_user_ref = push(customerService_ref);
-
-    const new_user = {
-      email,
-      displayName: email.split("@")[0],
-      created: new Date().toISOString(),
-    };
-
-    set(new_user_ref, new_user);
-
-    new_user.id = new_user_ref.key;
-    return new_user;
+    const metadata_ref = push(ref(db, DB_COLLECTION));
+    set(metadata_ref, userMetadata);
+    userMetadata.key = metadata_ref.key;
+    return userMetadata;
   } catch (e) {
     console.error("Error addUser() : ", e);
   }

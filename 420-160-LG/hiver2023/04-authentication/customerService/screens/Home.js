@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Text, View, StyleSheet } from "react-native";
+import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
 import { Stack, ListItem, Avatar, Button } from "@react-native-material/core";
 import Constants from "../Constants";
 import { getAdminData } from "../data/userData";
-import { TouchableOpacity } from "react-native-gesture-handler";
 import { logout } from "../services/userService";
 
 export default function Home({ navigation, route }) {

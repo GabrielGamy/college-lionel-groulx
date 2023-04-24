@@ -4,7 +4,7 @@ import { Stack, TextInput, Button } from "@react-native-material/core";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import Constants from "../Constants";
 import { getUserData, isConnected, signin } from "../services/userService";
-import { createUserData } from "../data/userData";
+import { createUserMetadata } from "../data/userData";
 
 export default function Login(props) {
   const [errorMessage, setErrorMessage] = useState("");
@@ -15,7 +15,7 @@ export default function Login(props) {
     const checkIsAuthenticated = async function () {
       const userConnectedInfo = await isConnected();
       if (userConnectedInfo) {
-        navigate(userConnectedInfo.token, userConnectedInfo.email);
+        navigate(userConnectedInfo.token);
         return;
       }
     };
@@ -31,20 +31,18 @@ export default function Login(props) {
       return;
     }
 
-    navigate(response?.data?.idToken, response?.data?.email);
+    navigate(response?.data?.idToken);
   };
 
-  const navigate = async (token, email) => {
+  const navigate = async (token) => {
     const userData = await getUserData(token);
-    if (userData?.data?.users[0]?.emailVerified) {
-      const user = await createUserData(email);
-      props.navigation.navigate("Home", {
-        user,
-      });
+    const metadata = userData?.data?.users[0];
+
+    if (metadata?.emailVerified) {
+      const user = await createUserMetadata(metadata);
+      props.navigation.navigate("Home", { user });
     } else {
-      props.navigation.navigate("VerifyEmail", {
-        token,
-      });
+      props.navigation.navigate("VerifyEmail", { token });
     }
   };
 
