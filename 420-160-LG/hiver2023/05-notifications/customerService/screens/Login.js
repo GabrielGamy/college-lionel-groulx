@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Text, View, StyleSheet, Image, TouchableOpacity } from "react-native";
 import { Stack, TextInput, Button } from "@react-native-material/core";
+import * as Device from "expo-device";
+import * as Notifications from "expo-notifications";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import Constants from "../Constants";
 import { getUserData, isConnected, signin } from "../services/userService";
@@ -10,6 +12,13 @@ export default function Login(props) {
   const [errorMessage, setErrorMessage] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [expoPushToken, setExpoPushToken] = useState("");
+
+  useEffect(() => {
+    registerForPushNotificationsAsync().then((token) =>
+      setExpoPushToken(token)
+    );
+  }, []);
 
   useEffect(function () {
     const checkIsAuthenticated = async function () {
@@ -39,11 +48,41 @@ export default function Login(props) {
     const metadata = userData?.data?.users[0];
 
     if (metadata?.emailVerified) {
+      metadata.pushToken = "";
       const user = await createUserMetadata(metadata);
       props.navigation.navigate("Home", { user });
     } else {
       props.navigation.navigate("VerifyEmail", { token });
     }
+  };
+
+  const registerForPushNotificationsAsync = async () => {
+    let token = "";
+
+    if (Platform.OS === "android") {
+      await Notifications.setNotificationChannelAsync("default", {
+        name: "default",
+        importance: Notifications.AndroidImportance.MAX,
+        vibrationPattern: [0, 250, 250, 250],
+        lightColor: "#FF231F7C",
+      });
+    }
+
+    const { status: existingStatus } =
+      await Notifications.getPermissionsAsync();
+    let finalStatus = existingStatus;
+    if (existingStatus !== "granted") {
+      const { status } = await Notifications.requestPermissionsAsync();
+      finalStatus = status;
+    }
+    if (finalStatus !== "granted") {
+      alert("Failed to get push token for push notification!");
+      return;
+    }
+    token = (await Notifications.getExpoPushTokenAsync()).data;
+    console.log(token);
+
+    return token;
   };
 
   return (
