@@ -1,5 +1,5 @@
 import { db } from "../config/firebaseConfig";
-import { ref, push, set, child, get } from "firebase/database";
+import { ref, update, child, get } from "firebase/database";
 
 const DB_COLLECTION = "USERS_METADATA";
 
@@ -12,9 +12,7 @@ export const createUserMetadata = async (userMetadata) => {
 
   let user = users.filter((u) => u.email == userMetadata.email)[0];
 
-  if (user) return user;
-
-  user = await addUserMetadata(userMetadata);
+  user = await createOrUpdateUserMetadata(userMetadata, user?.key);
   return user;
 };
 
@@ -50,13 +48,20 @@ export const getUsersMetadata = async () => {
   return users;
 };
 
-export const addUserMetadata = async (userMetadata) => {
+export const createOrUpdateUserMetadata = async (userMetadata, userKey) => {
   try {
-    const metadata_ref = push(ref(db, DB_COLLECTION));
-    set(metadata_ref, userMetadata);
-    userMetadata.key = metadata_ref.key;
+    if (userKey) {
+      const updates = {};
+      updates[`${DB_COLLECTION}/${userKey}`] = userMetadata;
+      update(ref(db), updates);
+    } else {
+      const metadata_ref = push(ref(db, DB_COLLECTION));
+      set(metadata_ref, userMetadata);
+      userMetadata.key = metadata_ref.key;
+    }
+
     return userMetadata;
   } catch (e) {
-    console.error("Error addUser() : ", e);
+    console.error("Error createOrUpdateUserMetadata() : ", e);
   }
 };

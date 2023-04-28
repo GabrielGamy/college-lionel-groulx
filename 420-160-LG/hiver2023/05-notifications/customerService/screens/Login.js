@@ -12,13 +12,6 @@ export default function Login(props) {
   const [errorMessage, setErrorMessage] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [expoPushToken, setExpoPushToken] = useState("");
-
-  useEffect(() => {
-    registerForPushNotificationsAsync().then((token) =>
-      setExpoPushToken(token)
-    );
-  }, []);
 
   useEffect(function () {
     const checkIsAuthenticated = async function () {
@@ -48,7 +41,7 @@ export default function Login(props) {
     const metadata = userData?.data?.users[0];
 
     if (metadata?.emailVerified) {
-      metadata.pushToken = "";
+      metadata.pushToken = await registerForPushNotificationsAsync();
       const user = await createUserMetadata(metadata);
       props.navigation.navigate("Home", { user });
     } else {
@@ -56,8 +49,8 @@ export default function Login(props) {
     }
   };
 
-  const registerForPushNotificationsAsync = async () => {
-    let token = "";
+  async function registerForPushNotificationsAsync() {
+    let token;
 
     if (Platform.OS === "android") {
       await Notifications.setNotificationChannelAsync("default", {
@@ -68,6 +61,7 @@ export default function Login(props) {
       });
     }
 
+    // if (Device.isDevice) {
     const { status: existingStatus } =
       await Notifications.getPermissionsAsync();
     let finalStatus = existingStatus;
@@ -81,9 +75,12 @@ export default function Login(props) {
     }
     token = (await Notifications.getExpoPushTokenAsync()).data;
     console.log(token);
+    // } else {
+    //   alert('Must use physical device for Push Notifications');
+    // }
 
     return token;
-  };
+  }
 
   return (
     <Stack spacing={2} style={{ margin: 8 }}>
