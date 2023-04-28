@@ -65,7 +65,7 @@ export default function Home({ navigation, route }) {
           );
         })}
       </View>
-      {lastMessages.length === 0 && userData && (
+      {lastMessages.length === 0 && userData && userData.role !== "admin" && (
         <View style={{ margin: 32 }}>
           <Button
             title="Débuter la discussion"

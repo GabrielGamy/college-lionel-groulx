@@ -12,6 +12,10 @@ export const createUserMetadata = async (userMetadata) => {
 
   let user = users.filter((u) => u.email == userMetadata.email)[0];
 
+  userMetadata = {
+    ...user,
+  };
+
   user = await createOrUpdateUserMetadata(userMetadata, user?.key);
   return user;
 };

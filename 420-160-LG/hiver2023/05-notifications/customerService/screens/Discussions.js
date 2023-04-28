@@ -39,7 +39,28 @@ export default function Discussions({ navigation, route }) {
     // Send recipient's message
     await sendMessage(recipientData, userData, messageData);
 
+    await sendNotification(recipientData.pushToken, chatMessage);
+
     setMessages(user_messages);
+  };
+
+  const sendNotification = async (pushToken, content) => {
+    const response = await fetch("https://exp.host/--/api/v2/push/send", {
+      method: "POST",
+      body: JSON.stringify({
+        to: pushToken,
+        title: "Vous avez un nouveau message",
+        body: content,
+        badge: 1,
+        data: {
+          fromUserId: userData.localId,
+        },
+      }),
+    });
+
+    console.log("pushToken", pushToken);
+
+    console.log("response", response.status);
   };
 
   const renderMessageItem = ({ item }) => {
