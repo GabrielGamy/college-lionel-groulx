@@ -4,6 +4,7 @@ import { Stack, TextInput, IconButton } from "@react-native-material/core";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import Constants from "../Constants";
 import { getMessages, sendMessage } from "../services/messageService";
+import * as Notifications from "expo-notifications";
 
 export default function Discussions({ navigation, route }) {
   const { userData, recipientData } = route.params;
@@ -39,28 +40,40 @@ export default function Discussions({ navigation, route }) {
     // Send recipient's message
     await sendMessage(recipientData, userData, messageData);
 
-    await sendNotification(recipientData.pushToken, chatMessage);
+    await scheduleNotification(recipientData.pushToken, chatMessage);
 
     setMessages(user_messages);
   };
 
-  const sendNotification = async (pushToken, content) => {
-    const response = await fetch("https://exp.host/--/api/v2/push/send", {
-      method: "POST",
-      body: JSON.stringify({
-        to: pushToken,
+  // const scheduleNotification = async (pushToken, content) => {
+  //   const response = await fetch("https://exp.host/--/api/v2/push/send", {
+  //     method: "POST",
+  //     body: JSON.stringify({
+  //       to: pushToken,
+  //       title: "Vous avez un nouveau message",
+  //       body: content,
+  //       badge: 1,
+  //       data: {
+  //         fromUserId: userData.localId,
+  //       },
+  //     }),
+  //   });
+
+  //   console.log("response", response.status);
+  // };
+
+  const scheduleNotification = async (pushToken, content) => {
+    await Notifications.scheduleNotificationAsync({
+      content: {
         title: "Vous avez un nouveau message",
         body: content,
         badge: 1,
         data: {
           fromUserId: userData.localId,
         },
-      }),
+      },
+      trigger: { seconds: 2 },
     });
-
-    console.log("pushToken", pushToken);
-
-    console.log("response", response.status);
   };
 
   const renderMessageItem = ({ item }) => {
