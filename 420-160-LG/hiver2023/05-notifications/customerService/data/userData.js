@@ -1,5 +1,5 @@
 import { db } from "../config/firebaseConfig";
-import { ref, update, child, get } from "firebase/database";
+import { ref, update, child, get, push, set } from "firebase/database";
 
 const DB_COLLECTION = "USERS_METADATA";
 
@@ -13,6 +13,7 @@ export const createUserMetadata = async (userMetadata) => {
   let user = users.filter((u) => u.email == userMetadata.email)[0];
 
   userMetadata = {
+    ...userMetadata,
     ...user,
   };
 
